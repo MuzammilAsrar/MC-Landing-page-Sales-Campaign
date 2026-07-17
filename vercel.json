@@ -1,34 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": [
-    "Static site. No build AND no install runs on Vercel, deliberately.",
-    "",
-    "The shipped artefacts (assets/css/build.min.css, assets/js/*.min.js) are",
-    "committed and verified, so there is nothing for Vercel to compile or",
-    "install. Reasons:",
-    "  1. With outputDirectory '.', a Vercel build would upload the whole",
-    "     working directory afterwards — including node_modules (~200MB).",
-    "  2. devDependencies include sharp, a native binary. Nothing in the deploy",
-    "     needs it, and it is a pointless failure surface on every deploy.",
-    "  3. An empty installCommand ('') makes Vercel run its DEFAULT (npm",
-    "     install) — which is what surfaced the lenis/tempus deprecation",
-    "     warning. A no-op command ('echo …') makes it truly skip install.",
-    "",
-    "outputDirectory MUST stay declared. Without it Vercel defaults to looking",
-    "for a public/ directory, doesn't find one, and fails the whole deploy.",
-    "",
-    "To rebuild the artefacts: npm install && npm run build (locally), commit."
-  ],
-
   "framework": null,
   "buildCommand": "echo skip: prebuilt static artefacts are committed",
   "installCommand": "echo skip: no runtime dependencies",
   "outputDirectory": ".",
-
   "cleanUrls": true,
   "trailingSlash": false,
-
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -16,8 +16,29 @@ The shipped files are committed, so it still serves as pure static:
 npx serve .
 ```
 
-**Deploy to Vercel:** drag the folder onto vercel.com, or `npx vercel`.
-`vercel.json` sets the cache headers.
+**Deploy to Vercel:** import the GitHub repo, Framework Preset = **Other**,
+Deploy. No settings to change — `vercel.json` handles everything.
+
+### What `vercel.json` does, and why
+
+It is a **prebuilt static deploy** — nothing is compiled or installed on Vercel:
+
+- `installCommand` / `buildCommand` are no-op `echo`s. The shipped artefacts
+  (`assets/css/build.min.css`, `assets/js/*.min.js`) are committed and verified,
+  so there is nothing to install or build. An **empty string here is not the
+  same as skipping** — Vercel treats `""` as "run the default `npm install`",
+  which is what surfaced the lenis/tempus deprecation warning. The `echo` truly
+  skips it.
+- `outputDirectory: "."` — must stay declared; without it Vercel hunts for a
+  `public/` dir, doesn't find one, and fails the deploy.
+- `framework: null` — plain static, no framework detection.
+
+⚠️ **`vercel.json` is schema-validated and rejects unknown keys.** A `"//"`
+comment key (fine in `package.json`) triggers *"Invalid request: should NOT have
+additional property //"* on import. Keep this file to recognised keys only;
+put explanations here in the README instead.
+
+To change the artefacts: `npm install && npm run build` locally, then commit.
 
 ⚠️ `assets/images/New folder/` (1.8 GB of raw photography) is **gitignored** —
 committing it would break GitHub and stall every deploy. The delivery crops in
