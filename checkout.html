@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Claim Jouw Plek · 8 September, Amsterdam | MAIN CHARACTER</title>
+
+<!--
+  ============================================================================
+  MAIN CHARACTER — Checkout
+  ⚠️  PROTOTYPE. This form does NOT take payments. It validates, shows the
+      success state, and stops. The live build must hand off to Plug&Pay —
+      see README.md → "Wiring the checkout to Plug&Pay".
+
+  The header is deliberately DARK: the brand rule is that the wordmark is
+  always white, and a white wordmark on the bone surface would be invisible.
+  ============================================================================
+-->
+
+<meta name="description" content="Claim jouw plek voor De kracht van jouw verhaal — 8 september, Amsterdam." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0A0A0B" />
+<link rel="icon" href="assets/images/favicon.png" />
+
+<link rel="preload" href="assets/fonts/Fraunces-normal-300_700-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/Inter-normal-200_600-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/build.min.css" />
+
+<style>
+  body { background: var(--bone); color: var(--text-on-light); }
+</style>
+</head>
+
+<body>
+<a href="#checkout-form" class="skip-link">Naar het formulier</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     HEADER — dark, minimal. No navigation: every extra link here is a leak.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="bg-ink sticky top-0 z-50 border-b border-[color:var(--ink-line)]">
+  <div class="shell flex items-center justify-between py-4">
+    <a href="index.html" class="wordmark">MAIN CHARACTER</a>
+
+    <div class="flex items-center gap-5">
+      <span class="hidden sm:flex items-center gap-2 text-xs text-[color:var(--text-on-dark-muted)]">
+        <svg class="text-gold" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Beveiligde Verbinding
+      </span>
+      <a href="index.html" class="text-xs text-[color:var(--text-on-dark-muted)] hover:text-bone transition-colors flex items-center gap-1.5">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Terug
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Progress -->
+<div class="border-b border-[color:var(--gray-line)] bg-white">
+  <div class="shell py-4">
+    <div class="steps justify-center" id="steps" aria-label="Voortgang">
+      <div class="step" data-step="1" data-state="current">
+        <span class="step-dot">1</span>
+        <span class="hidden sm:inline">Jouw Gegevens</span>
+      </div>
+      <span class="step-bar"></span>
+      <div class="step" data-step="2" data-state="todo">
+        <span class="step-dot">2</span>
+        <span class="hidden sm:inline">Betaling</span>
+      </div>
+      <span class="step-bar"></span>
+      <div class="step" data-step="3" data-state="todo">
+        <span class="step-dot">3</span>
+        <span class="hidden sm:inline">Je Plek Is Van Jou</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Urgency strip -->
+<div class="bg-ink text-bone">
+  <div class="shell py-2.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-center">
+    <span class="flex items-center gap-2">
+      <i class="dot-pulse flex-none"></i>
+      <span data-placeholder="seats">Nog <span class="text-gold font-semibold tnum" data-seats-left>12</span> van de 40 plekken</span>
+    </span>
+    <span class="opacity-30 hidden sm:inline">·</span>
+    <span class="flex items-center gap-2">
+      <span class="opacity-70">Event begint over</span>
+      <span class="tnum font-semibold text-gold" data-mini-countdown data-deadline="2026-09-08T09:30:00+02:00">…</span>
+    </span>
+    <span class="opacity-30 hidden md:inline">·</span>
+    <span class="hidden md:inline opacity-70">Je plek staat <span class="tnum font-semibold text-bone" data-hold-timer>15:00</span> gereserveerd</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       EVENT SUMMARY — the visitor should still feel the event, not a form
+       ════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-ink text-bone">
+    <div class="absolute inset-0 z-0">
+      <picture><source srcset="assets/images/exp-hall.avif" type="image/avif" /><source srcset="assets/images/exp-hall.webp" type="image/webp" /><img src="assets/images/exp-hall.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover" width="1400" height="788" /></picture>
+      <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(10,10,11,0.97) 30%, rgba(10,10,11,0.72))"></div>
+    </div>
+
+    <div class="shell relative z-10 py-12 lg:py-16">
+      <div class="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-5">
+            <span class="pill pill-gold"><i class="dot-pulse"></i> 8 September 2026</span>
+            <span class="pill pill-glass">Regio Amsterdam</span>
+            <span class="pill pill-glass">09:30 tot 17:30</span>
+          </div>
+          <h1 class="display display-sm mb-3 max-w-[18ch]">Je Bent Één Stap van Het Podium.</h1>
+          <p class="text-[color:var(--text-on-dark-muted)] max-w-[52ch]">
+            Vul je gegevens in en je plek voor 8 september is definitief. Je
+            leeromgeving met acht theateropnames staat binnen twee minuten in je
+            inbox.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-5 lg:gap-7">
+          <!-- Bigger than before: the shot is a full-figure composition and a
+               96px tile threw it away. -->
+          <div class="media media-plain w-28 h-40 lg:w-44 lg:h-60 flex-none !rounded-[var(--r-lg)]">
+            <picture><source srcset="assets/images/onyema-checkout.avif" type="image/avif" /><source srcset="assets/images/onyema-checkout.webp" type="image/webp" /><img src="assets/images/onyema-checkout.jpg" alt="Onyema Onwuka in wit pak, zittend in de zaal."
+                 loading="lazy" width="700" height="933" /></picture>
+          </div>
+          <div>
+            <p class="eyebrow mb-2">Jouw Regisseur</p>
+            <p class="display !text-[length:var(--step-2)] text-bone leading-tight">Onyema Onwuka</p>
+            <p class="text-xs text-[color:var(--text-on-dark-muted)] mt-2 max-w-[22ch]">Regie en sprekerscoaching</p>
+            <div class="stars mt-3 text-sm" aria-hidden="true">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-tight !pt-10">
+    <div class="shell">
+      <div class="grid lg:grid-cols-[1fr_400px] gap-8 lg:gap-14 items-start">
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             LEFT — form
+             ══════════════════════════════════════════════════════════════════ -->
+        <div>
+          <form id="checkout-form" novalidate>
+
+            <!-- Step 1 -->
+            <section class="card card-light !p-7 mb-4" data-panel="1">
+              <div class="flex items-center gap-3 mb-7">
+                <span class="w-7 h-7 rounded-full bg-ink text-bone grid place-items-center text-xs font-semibold flex-none">1</span>
+                <h2 class="display !text-[length:var(--step-1)]">Jouw Gegevens</h2>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                <div class="field">
+                  <input class="input" type="text" id="firstName" name="firstName" placeholder=" " autocomplete="given-name" required aria-describedby="firstName-err" />
+                  <label class="label-float" for="firstName">Voornaam</label>
+                  <p class="field-error" id="firstName-err">Vul je voornaam in.</p>
+                </div>
+                <div class="field">
+                  <input class="input" type="text" id="lastName" name="lastName" placeholder=" " autocomplete="family-name" required aria-describedby="lastName-err" />
+                  <label class="label-float" for="lastName">Achternaam</label>
+                  <p class="field-error" id="lastName-err">Vul je achternaam in.</p>
+                </div>
+              </div>
+
+              <div class="field mb-4">
+                <input class="input" type="email" id="email" name="email" placeholder=" " autocomplete="email" inputmode="email" required aria-describedby="email-err" />
+                <label class="label-float" for="email">Mailadres</label>
+                <p class="field-error" id="email-err">Controleer je mailadres. Hier sturen we je ticket naartoe.</p>
+              </div>
+
+              <div class="field mb-5">
+                <input class="input" type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel" inputmode="tel" required aria-describedby="phone-err" />
+                <label class="label-float" for="phone">Telefoonnummer</label>
+                <p class="field-error" id="phone-err">Vul een geldig telefoonnummer in.</p>
+              </div>
+
+              <p class="text-xs text-[color:var(--text-on-light-muted)] flex items-start gap-2">
+                <svg class="flex-none mt-0.5 text-[color:var(--gold-deep)]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                We bellen je alleen als er iets met je ticket is. Geen verkoop, nooit.
+              </p>
+            </section>
+
+            <!-- Order bump -->
+            <section class="bump mb-4" data-placeholder="bump">
+              <label class="flex gap-4 cursor-pointer">
+                <input type="checkbox" id="bump" name="bump" class="mt-1 w-[18px] h-[18px] flex-none" style="accent-color:var(--gold-deep)" />
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                    <span class="pill !bg-[color:var(--gold)] !text-ink !border-transparent">Voeg Toe</span>
+                    <p class="font-medium text-sm">Meditatie "Stap In Je Main Character"</p>
+                  </div>
+                  <p class="text-xs text-[color:var(--text-on-light-muted)] mb-2">
+                    De meditatie die deelnemers de ochtend van het event
+                    gebruiken. Twaalf minuten, oordoppen in, en je loopt de zaal
+                    binnen als iemand die er hoort te zijn.
+                  </p>
+                  <p class="text-xs">
+                    <span class="line-through text-[color:var(--text-on-light-muted)] tnum">€47</span>
+                    <span class="font-semibold text-[color:var(--gold-deep)] tnum">nu €27</span>
+                    <span class="text-[color:var(--text-on-light-muted)]">alleen bij dit ticket</span>
+                  </p>
+                </div>
+              </label>
+            </section>
+
+            <!-- Step 2 -->
+            <section class="card card-light !p-7 mb-4" data-panel="2">
+              <div class="flex items-center gap-3 mb-7">
+                <span class="w-7 h-7 rounded-full bg-ink text-bone grid place-items-center text-xs font-semibold flex-none">2</span>
+                <h2 class="display !text-[length:var(--step-1)]">Betaalmethode</h2>
+              </div>
+
+              <fieldset class="space-y-2.5 mb-6 border-0 p-0 m-0">
+                <legend class="sr-only">Kies een betaalmethode</legend>
+
+                <label class="radio-card">
+                  <input type="radio" name="pay" value="ideal" checked />
+                  <span class="flex-1 text-sm font-medium">iDEAL</span>
+                  <span class="text-xs text-[color:var(--text-on-light-muted)]">Meest gekozen</span>
+                  <svg width="30" height="26" viewBox="0 0 30 26" aria-hidden="true"><rect width="30" height="26" rx="4" fill="#fff" stroke="#E2DDD5"/><path d="M8 7h5.5c3.6 0 5.8 2 5.8 6s-2.2 6-5.8 6H8z" fill="#CC0066"/><rect x="21" y="9" width="3" height="8" rx="1" fill="#0A0A0B"/></svg>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="pay" value="card" />
+                  <span class="flex-1 text-sm font-medium">Creditcard / Debitcard</span>
+                  <span class="flex gap-1.5" aria-hidden="true">
+                    <svg width="30" height="20" viewBox="0 0 30 20"><rect width="30" height="20" rx="3" fill="#1A1F71"/><path d="M12 14l1.6-8h2.4l-1.6 8zm7.6-7.8c-.5-.2-1.2-.4-2.1-.4-2.3 0-3.9 1.2-3.9 2.9 0 1.3 1.2 2 2.1 2.4.9.4 1.2.7 1.2 1 0 .6-.7.8-1.3.8-.9 0-1.4-.1-2.1-.4l-.3-.1-.3 1.9c.5.2 1.5.4 2.5.4 2.4 0 4-1.2 4-3 0-1-.6-1.8-2-2.4-.8-.4-1.3-.7-1.3-1.1 0-.4.4-.7 1.3-.7.7 0 1.3.1 1.7.3l.2.1z" fill="#fff"/></svg>
+                    <svg width="30" height="20" viewBox="0 0 30 20"><rect width="30" height="20" rx="3" fill="#F4F4F4"/><circle cx="12" cy="10" r="6" fill="#EB001B"/><circle cx="18" cy="10" r="6" fill="#F79E1B" fill-opacity="0.85"/></svg>
+                  </span>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="pay" value="bancontact" />
+                  <span class="flex-1 text-sm font-medium">Bancontact</span>
+                  <span class="text-xs text-[color:var(--text-on-light-muted)]">België</span>
+                  <svg width="30" height="20" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" rx="3" fill="#fff" stroke="#E2DDD5"/><path d="M6 13l6-6h6l-6 6z" fill="#005498"/><path d="M12 13l6-6h6l-6 6z" fill="#FFD800"/></svg>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="pay" value="paypal" />
+                  <span class="flex-1 text-sm font-medium">PayPal</span>
+                  <svg width="30" height="20" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" rx="3" fill="#fff" stroke="#E2DDD5"/><path d="M10 14l1.2-8h4.3c2 0 3 1 2.7 2.8-.3 2-1.8 3-4 3h-1.6L12 14z" fill="#003087"/><path d="M14 14l1.2-8h2.6c2 0 3 1 2.7 2.8-.3 2-1.8 3-4 3h-1.6L14.6 14z" fill="#009CDE" fill-opacity="0.8"/></svg>
+                </label>
+              </fieldset>
+
+              <label class="flex gap-3 items-start cursor-pointer">
+                <input type="checkbox" id="terms" name="terms" class="mt-1 w-[18px] h-[18px] flex-none" style="accent-color:var(--gold-deep)" required aria-describedby="terms-error" />
+                <span class="text-xs text-[color:var(--text-on-light-muted)]">
+                  Ik ga akkoord met de
+                  <a href="#" class="underline hover:text-[color:var(--ink)]" data-placeholder="link">algemene voorwaarden</a> en het
+                  <a href="#" class="underline hover:text-[color:var(--ink)]" data-placeholder="link">privacybeleid</a>.
+                </span>
+              </label>
+              <p class="field-error" id="terms-error">Je moet akkoord gaan om verder te kunnen.</p>
+            </section>
+
+            <button type="submit" class="btn btn-gold btn-block btn-lg mb-4" id="submitBtn" data-cta="checkout-submit">
+              <span data-submit-label>Betaal €125 En Claim Mijn Plek</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+
+            <p class="text-xs text-center text-[color:var(--text-on-light-muted)] flex items-center justify-center gap-2">
+              <svg class="text-[color:var(--gold-deep)]" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              Beveiligd via Plug&amp;Pay · je gegevens worden versleuteld verstuurd
+            </p>
+          </form>
+
+          <!-- What happens after purchase -->
+          <section class="card card-light !p-7 mt-8">
+            <div class="flex items-center gap-3 mb-7">
+              <span class="icon-ring !w-9 !h-9" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+              </span>
+              <h2 class="display !text-[length:var(--step-1)]">Wat Er Hierna Gebeurt</h2>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-item pb-7" data-timeline-item>
+                <span class="timeline-node"></span>
+                <p class="card-index !text-[color:var(--gold-deep)] mb-1.5">Binnen 2 Minuten</p>
+                <p class="text-sm text-[color:var(--text-on-light-muted)] max-w-[46ch]">
+                  Je ticket en de inloggegevens voor je leeromgeving staan in je inbox.
+                </p>
+              </div>
+              <div class="timeline-item pb-7" data-timeline-item>
+                <span class="timeline-node"></span>
+                <p class="card-index !text-[color:var(--gold-deep)] mb-1.5">Vandaag Nog</p>
+                <p class="text-sm text-[color:var(--text-on-light-muted)] max-w-[46ch]">
+                  Je kunt beginnen met de acht theateropnames. Kijk ze in je eigen tempo.
+                </p>
+              </div>
+              <div class="timeline-item pb-7" data-timeline-item>
+                <span class="timeline-node"></span>
+                <p class="card-index !text-[color:var(--gold-deep)] mb-1.5">De Week Ervoor</p>
+                <p class="text-sm text-[color:var(--text-on-light-muted)] max-w-[46ch]">
+                  Live Q&amp;A met Onyema. Jouw vragen, jouw verhaal, voordat je de zaal in loopt.
+                </p>
+              </div>
+              <div class="timeline-item" data-timeline-item>
+                <span class="timeline-node"></span>
+                <p class="card-index !text-[color:var(--gold-deep)] mb-1.5">8 September</p>
+                <p class="text-sm text-[color:var(--text-on-light-muted)] max-w-[46ch]">
+                  Je staat op het podium. Adres en routebeschrijving krijg je ruim vooraf.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Guarantee -->
+          <section class="card card-light !p-7 mt-4 flex gap-5" data-placeholder="guarantee">
+            <span class="icon-ring !w-12 !h-12" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h2 class="display !text-[length:var(--step-1)] mb-2">De Lunchgarantie</h2>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">
+                Blijf tot de lunch. Vind je dan dat deze dag niets voor je doet? Zeg
+                het bij de balie en je krijgt je volledige investering terug. Geen
+                gesprek, geen formulier, geen ongemak. Het risico is van ons.
+              </p>
+            </div>
+          </section>
+
+          <!-- Event highlights -->
+          <section class="mt-8">
+            <p class="eyebrow eyebrow--muted mb-5">Dit Wacht Op Je</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/exp-turningpoint.avif" type="image/avif" /><source srcset="assets/images/exp-turningpoint.webp" type="image/webp" /><img src="assets/images/exp-turningpoint.jpg" alt="Onyema Onwuka opent het event voor de zaal." loading="lazy" width="1000" height="750" /></picture>
+              </div>
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/exp-duo-stage.avif" type="image/avif" /><source srcset="assets/images/exp-duo-stage.webp" type="image/webp" /><img src="assets/images/exp-duo-stage.jpg" alt="Een deelnemer staat met de microfoon op het podium." loading="lazy" width="1000" height="750" /></picture>
+              </div>
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/exp-circle.avif" type="image/avif" /><source srcset="assets/images/exp-circle.webp" type="image/webp" /><img src="assets/images/exp-circle.jpg" alt="Deelnemers in een kring tijdens de sessie." loading="lazy" width="1000" height="750" /></picture>
+              </div>
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/workbook-writing.avif" type="image/avif" /><source srcset="assets/images/workbook-writing.webp" type="image/webp" /><img src="assets/images/workbook-writing.jpg" alt="Het uitgeschreven verhaal op de typemachine." loading="lazy" width="800" height="600" /></picture>
+              </div>
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/exp-interaction.avif" type="image/avif" /><source srcset="assets/images/exp-interaction.webp" type="image/webp" /><img src="assets/images/exp-interaction.jpg" alt="Onyema Onwuka geeft live regie aan een deelnemer." loading="lazy" width="1000" height="750" /></picture>
+              </div>
+              <div class="media media-zoom media-tone ratio-square">
+                <picture><source srcset="assets/images/cta-celebration.avif" type="image/avif" /><source srcset="assets/images/cta-celebration.webp" type="image/webp" /><img src="assets/images/cta-celebration.jpg" alt="De zaal viert het einde van de dag." loading="lazy" width="1920" height="1080" /></picture>
+              </div>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section class="mt-8">
+            <p class="eyebrow eyebrow--muted mb-4">Nog Één Vraag?</p>
+            <div id="faq">
+              <div class="acc-item" data-open="false">
+                <button class="acc-trigger !text-[length:var(--step-0)] !py-5" aria-expanded="false" aria-controls="c-faq-1">
+                  Wanneer wordt er afgeschreven?
+                  <span class="acc-icon !w-8 !h-8" aria-hidden="true"></span>
+                </button>
+                <div class="acc-panel" id="c-faq-1" role="region">
+                  <div class="acc-body !pb-5 !text-sm">
+                    <p>Direct. Het is één eenmalige betaling van €125. Geen abonnement,
+                    geen vervolgtermijnen, geen kleine lettertjes.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acc-item" data-open="false">
+                <button class="acc-trigger !text-[length:var(--step-0)] !py-5" aria-expanded="false" aria-controls="c-faq-2">
+                  Kan ik mijn ticket overdragen?
+                  <span class="acc-icon !w-8 !h-8" aria-hidden="true"></span>
+                </button>
+                <div class="acc-panel" id="c-faq-2" role="region">
+                  <div class="acc-body !pb-5 !text-sm">
+                    <!-- ⚠️ PLACEHOLDER: confirm transfer policy -->
+                    <p data-placeholder="policy">Ja. Kun je onverhoopt niet? Mail ons uiterlijk 48 uur van tevoren en
+                    je plek gaat op naam van iemand anders.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acc-item" data-open="false">
+                <button class="acc-trigger !text-[length:var(--step-0)] !py-5" aria-expanded="false" aria-controls="c-faq-3">
+                  Wanneer krijg ik het adres?
+                  <span class="acc-icon !w-8 !h-8" aria-hidden="true"></span>
+                </button>
+                <div class="acc-panel" id="c-faq-3" role="region">
+                  <div class="acc-body !pb-5 !text-sm">
+                    <p data-placeholder="venue">Direct na je aanmelding, samen met je ticket. De zaal ligt in de regio
+                    Amsterdam, binnen 20 minuten van Amsterdam Centraal, met gratis
+                    parkeren op eigen terrein.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acc-item" data-open="false">
+                <button class="acc-trigger !text-[length:var(--step-0)] !py-5" aria-expanded="false" aria-controls="c-faq-4">
+                  En als het me niets oplevert?
+                  <span class="acc-icon !w-8 !h-8" aria-hidden="true"></span>
+                </button>
+                <div class="acc-panel" id="c-faq-4" role="region">
+                  <div class="acc-body !pb-5 !text-sm">
+                    <p data-placeholder="guarantee">Blijf tot de lunch. Vind je dan dat deze dag niets voor je doet? Zeg
+                    het bij de balie en je krijgt je volledige investering terug.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════════
+             RIGHT — sticky order summary
+             ══════════════════════════════════════════════════════════════════ -->
+        <aside class="lg:sticky lg:top-24">
+          <div class="card card-light !p-0 overflow-hidden">
+
+            <div class="relative">
+              <div class="media media-plain aspect-[16/10] !rounded-none">
+                <picture><source srcset="assets/images/checkout-product.avif" type="image/avif" /><source srcset="assets/images/checkout-product.webp" type="image/webp" /><img src="assets/images/checkout-product.jpg" alt="Onyema Onwuka opent een MAIN CHARACTER event." loading="lazy" width="700" height="438" /></picture>
+                <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(10,10,11,0.9), transparent 65%)"></div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-5 z-[2]">
+                <span class="pill pill-gold mb-2.5">8 September 2026</span>
+                <p class="display !text-[length:var(--step-1)] text-bone leading-tight">
+                  De Kracht Van Jouw Verhaal
+                </p>
+                <p class="text-xs text-[color:var(--text-on-dark-muted)] mt-1">Live podiumdag · regio Amsterdam</p>
+              </div>
+            </div>
+
+            <div class="p-6 border-b border-[color:var(--gray-line)]">
+              <p class="eyebrow eyebrow--muted mb-4">Dit Zit Erin</p>
+              <ul class="space-y-2.5 text-xs">
+                <li class="flex items-start gap-2.5">
+                  <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span class="flex-1">Live podiumdag in Amsterdam</span>
+                  <span class="text-[color:var(--text-on-light-muted)]">Kern</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span class="flex-1">8 video's, opgenomen in het theater</span>
+                  <span class="text-[color:var(--text-on-light-muted)] tnum">€297</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span class="flex-1">Live Q&amp;A met Onyema</span>
+                  <span class="text-[color:var(--text-on-light-muted)] tnum">€197</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span class="flex-1">Storytelling Framework + workbook</span>
+                  <span class="text-[color:var(--text-on-light-muted)] tnum">€149</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span class="flex-1">Persoonlijke regie &amp; feedback</span>
+                  <span class="text-[color:var(--text-on-light-muted)]">Inbegrepen</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-6">
+              <div class="space-y-2.5 text-sm mb-4">
+                <div class="flex justify-between">
+                  <span class="text-[color:var(--text-on-light-muted)]">Ticket</span>
+                  <span class="tnum">€125,00</span>
+                </div>
+                <div class="flex justify-between text-[color:var(--gold-deep)] hidden" data-bump-row>
+                  <span>Meditatiebundel</span>
+                  <span class="tnum">€27,00</span>
+                </div>
+                <div class="flex justify-between text-[color:var(--text-on-light-muted)]">
+                  <span>Je bespaart <span class="text-[0.6875rem]">(t.o.v. €500)</span></span>
+                  <span class="tnum text-[color:var(--gold-deep)]">€375,00</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-baseline pt-4 border-t border-[color:var(--gray-line)] mb-1">
+                <span class="font-medium">Totaal Vandaag</span>
+                <span class="display !text-[length:var(--step-2)] tnum" data-total>€125,00</span>
+              </div>
+              <p class="text-[0.6875rem] text-[color:var(--text-on-light-muted)] mb-6">
+                Eenmalig · incl. 21% btw · geen abonnement
+              </p>
+
+              <button type="submit" form="checkout-form" class="btn btn-gold btn-block lg:hidden mb-5" data-cta="checkout-summary">
+                Betaal En Claim Mijn Plek
+              </button>
+
+              <div class="meter mb-2.5"><i class="meter-fill" style="width:70%"></i></div>
+              <p class="text-[0.6875rem] text-center text-[color:var(--text-on-light-muted)] mb-5" data-placeholder="seats">
+                <span class="text-[color:var(--gold-deep)] font-semibold tnum" data-seats-left>12</span> van 40 plekken over
+              </p>
+
+              <div class="pt-5 border-t border-[color:var(--gray-line)] space-y-2.5">
+                <p class="text-[0.6875rem] text-[color:var(--text-on-light-muted)] flex items-center gap-2">
+                  <svg class="text-[color:var(--gold-deep)] flex-none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span data-placeholder="guarantee">Geld terug tot de lunch, zonder gesprek</span>
+                </p>
+                <p class="text-[0.6875rem] text-[color:var(--text-on-light-muted)] flex items-center gap-2">
+                  <svg class="text-[color:var(--gold-deep)] flex-none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  256 bits SSL · PCI DSS compliant
+                </p>
+                <p class="text-[0.6875rem] text-[color:var(--text-on-light-muted)] flex items-center gap-2">
+                  <svg class="text-[color:var(--gold-deep)] flex-none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                  Direct toegang tot je leeromgeving
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-[0.6875rem] text-center text-[color:var(--text-on-light-muted)] mt-5">
+            Vragen voor je bestelt?
+            <a href="mailto:info@maincharactermethod.nl" class="underline hover:text-[color:var(--ink)]" data-placeholder="link">info@maincharactermethod.nl</a>
+          </p>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="py-8 border-t border-[color:var(--gray-line)] mt-14">
+  <div class="shell flex flex-col sm:flex-row justify-between items-center gap-3 text-[0.6875rem] text-[color:var(--text-on-light-muted)]">
+    <p>© 2026 MAIN CHARACTER B.V. · KvK <span data-placeholder="legal">00000000</span></p>
+    <div class="flex gap-5" data-placeholder="link">
+      <a href="#" class="hover:text-[color:var(--ink)] transition-colors">Voorwaarden</a>
+      <a href="#" class="hover:text-[color:var(--ink)] transition-colors">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Instagram. No floating CTA here: the visitor is already in the
+     cart, and a second competing gold button next to "Betaal" costs sales. -->
+<div class="float-stack">
+  <a href="https://www.instagram.com/onyema_sprekerscoach_regisseur/"
+     class="float-ig" target="_blank" rel="noopener noreferrer"
+     aria-label="Volg MAIN CHARACTER op Instagram (opent in een nieuw tabblad)">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5"/>
+      <circle cx="12" cy="12" r="3.8"/>
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+</div>
+
+<!-- Success state -->
+<dialog id="successModal" class="bg-transparent p-0 backdrop:bg-ink/80 backdrop:backdrop-blur-sm max-w-[440px] w-[92vw]">
+  <div class="card card-light !p-9 text-center">
+    <span class="icon-ring !w-16 !h-16 mx-auto mb-6" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg>
+    </span>
+    <h2 class="display display-sm mb-3">Je Plek Is Van Jou.</h2>
+    <p class="text-sm text-[color:var(--text-on-light-muted)] mb-7">
+      In de echte versie ga je nu door naar Plug&amp;Pay om de betaling af te
+      ronden. Dit is de bevestiging van het prototype voor de designreview.
+    </p>
+    <button class="btn btn-dark btn-block" data-success-close>Terug Naar Het Formulier</button>
+  </div>
+</dialog>
+<script src="assets/js/checkout.min.js" defer></script>
+</body>
+</html>

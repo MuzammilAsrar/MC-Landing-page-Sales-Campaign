@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>De Kracht van Jouw Verhaal · 8 September, Amsterdam | MAIN CHARACTER</title>
+
+<!--
+  ============================================================================
+  MAIN CHARACTER — Landing page
+  "De kracht van jouw verhaal" · 8 september 2026 · Amsterdam
+
+  ⚠️  BEFORE LAUNCH: every unverified claim is tagged data-placeholder="…".
+      Search for `data-placeholder` and check each against CONTENT-TODO.md.
+      All photography is the client's own. The Brenda Kouwenhoven testimonial
+      is REAL (her own recorded words) — everything else needs verification.
+  ============================================================================
+-->
+
+<meta name="description" content="Eén dag in Amsterdam waarin je leert je verhaal te vertellen met de rust en de impact van een geboren spreker. 8 september. De editie van 25 juni was uitverkocht." />
+<meta name="theme-color" content="#0A0A0B" />
+<link rel="canonical" href="https://www.maincharactermethod.nl/8-september/" />
+<link rel="icon" href="assets/images/favicon.png" />
+<link rel="apple-touch-icon" href="assets/images/favicon.png" />
+
+<!-- Open Graph / Meta Ads share card -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="nl_NL" />
+<meta property="og:site_name" content="MAIN CHARACTER" />
+<meta property="og:title" content="Je hebt iets te zeggen. Tijd dat de zaal het hoort." />
+<meta property="og:description" content="Eén dag in Amsterdam. 8 september. De editie van 25 juni was uitverkocht." />
+<!-- ⚠️ og:image must be ABSOLUTE — scrapers don't resolve relative paths.
+     Update the host once the final domain is decided. -->
+<meta property="og:image" content="https://www.maincharactermethod.nl/8-september/assets/images/onyema-stage-mic.jpg" />
+<meta property="og:image:width" content="900" />
+<meta property="og:image:height" content="1350" />
+<meta property="og:video" content="https://vimeo.com/1076667567" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Je hebt iets te zeggen. Tijd dat de zaal het hoort." />
+<meta name="twitter:description" content="Eén dag in Amsterdam. 8 september. De editie van 25 juni was uitverkocht." />
+<meta name="twitter:image" content="https://www.maincharactermethod.nl/8-september/assets/images/onyema-stage-mic.jpg" />
+
+<!-- LCP preload. imagesrcset + type lets the preload scanner pick the same
+     AVIF the picture element will choose; preloading the .jpg would fetch a file
+     the page then never uses. -->
+<link rel="preload" as="image" fetchpriority="high"
+      imagesrcset="assets/images/hero-poster.avif" type="image/avif"
+      href="assets/images/hero-poster.avif" />
+
+<link rel="preload" href="assets/fonts/Fraunces-normal-300_700-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/Inter-normal-200_600-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/build.min.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationEvent",
+  "name": "De kracht van jouw verhaal",
+  "description": "Eén dag in Amsterdam waarin je leert je verhaal te vertellen met de rust, de spanning en de impact van een geboren spreker.",
+  "startDate": "2026-09-08T09:30:00+02:00",
+  "endDate": "2026-09-08T17:30:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "inLanguage": "nl-NL",
+  "maximumAttendeeCapacity": 40,
+  "location": {
+    "@type": "Place",
+    "name": "Locatie regio Amsterdam",
+    "address": { "@type": "PostalAddress", "addressLocality": "Amsterdam", "addressCountry": "NL" }
+  },
+  "image": ["https://www.maincharactermethod.nl/8-september/assets/images/onyema-stage-mic.jpg"],
+  "organizer": { "@type": "Organization", "name": "MAIN CHARACTER B.V.", "url": "https://www.maincharactermethod.nl" },
+  "performer": { "@type": "Person", "name": "Onyema Onwuka", "jobTitle": "Regie en sprekerscoaching" },
+  "offers": {
+    "@type": "Offer",
+    "name": "Ticket — De kracht van jouw verhaal",
+    "price": "125",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/LimitedAvailability",
+    "url": "checkout.html",
+    "validFrom": "2026-07-01T00:00:00+02:00"
+  }
+}
+</script>
+</head>
+
+<body>
+<a href="#hoofdinhoud" class="skip-link">Naar hoofdinhoud</a>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     LOADER — self-dismisses via CSS keyframe; JS only speeds it up.
+     See main.css §21 for why.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="text-center">
+    <div class="wordmark" style="font-size:0.8125rem">MAIN CHARACTER</div>
+    <div class="loader-bar"><i></i></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     NAV — one-page, sticky, scrollspy
+     ══════════════════════════════════════════════════════════════════════════ -->
+<header class="nav" id="nav" data-menu-open="false">
+  <!-- The desktop row (wordmark + six links + pill + CTA) exactly fills the
+       1112px content width, so it needs a gap to stop the wordmark touching
+       the first link. That same gap pushes the burger off-screen at 390px —
+       hence the breakpoint. -->
+  <div class="shell flex items-center justify-between gap-3 lg:gap-8 py-5">
+    <a href="#hero" class="wordmark" aria-label="MAIN CHARACTER — naar boven">MAIN CHARACTER</a>
+
+    <nav class="hidden lg:flex items-center gap-5 xl:gap-7" aria-label="Hoofdnavigatie">
+      <a href="#verhaal"    class="nav-link" data-spy>Het Verhaal</a>
+      <a href="#ervaring"   class="nav-link" data-spy>De Dag</a>
+      <a href="#onyema"     class="nav-link" data-spy>Onyema</a>
+      <a href="#programma"  class="nav-link" data-spy>Programma</a>
+      <a href="#verhalen"   class="nav-link" data-spy>Verhalen</a>
+      <a href="#praktisch"  class="nav-link" data-spy>Praktisch</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <span class="pill pill-glass hidden 2xl:inline-flex">
+        <i class="dot-pulse"></i> 8 sep · Amsterdam
+      </span>
+      <!-- Short label + no arrow on small phones: the full "Claim Je Plek →"
+           pushes the burger off-screen at 360px. Keeping a visible CTA in the
+           nav matters more on paid traffic than keeping the wording identical. -->
+      <a href="#ticket" class="btn btn-gold !px-4 !py-3 !text-[0.8125rem] sm:!px-7 sm:!py-4 sm:!text-[0.9375rem]" data-cta="nav">
+        <span class="sm:hidden">Tickets</span>
+        <span class="hidden sm:inline">Claim Je Plek</span>
+        <svg class="hidden sm:block" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <button class="burger lg:hidden" id="burger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="burger-box" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu lg:hidden" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigatie">
+  <nav class="flex flex-col">
+    <a href="#verhaal"   class="mobile-menu-link" data-spy><span class="idx">01</span> Het Verhaal</a>
+    <a href="#ervaring"  class="mobile-menu-link" data-spy><span class="idx">02</span> De Dag</a>
+    <a href="#onyema"    class="mobile-menu-link" data-spy><span class="idx">03</span> Onyema</a>
+    <a href="#programma" class="mobile-menu-link" data-spy><span class="idx">04</span> Programma</a>
+    <a href="#verhalen"  class="mobile-menu-link" data-spy><span class="idx">05</span> Verhalen</a>
+    <a href="#praktisch" class="mobile-menu-link" data-spy><span class="idx">06</span> Praktisch</a>
+  </nav>
+
+  <div class="mobile-menu-foot mt-12">
+    <hr class="rule mb-7" />
+    <a href="#ticket" class="btn btn-gold btn-block btn-lg mb-5" data-cta="mobile-menu">
+      Claim Jouw Plek Voor €125
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <p class="text-xs text-[color:var(--text-on-dark-muted)] text-center">
+      8 september 2026 · Regio Amsterdam ·
+      <span data-placeholder="seats"><span class="text-gold tnum" data-seats-left>12</span> plekken over</span>
+    </p>
+  </div>
+</div>
+
+<main id="hoofdinhoud">
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     1 · HERO — the Vimeo film is the centrepiece
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden grain pt-28 pb-16 lg:pt-32 lg:pb-20" id="hero">
+
+  <!-- Background: the real hall, pushed right back so the film owns the frame -->
+  <div class="absolute inset-0 z-0">
+    <picture><source srcset="assets/images/hero-hall.avif" type="image/avif" /><source srcset="assets/images/hero-hall.webp" type="image/webp" /><img src="assets/images/hero-hall.jpg" alt="" aria-hidden="true"
+         class="w-full h-full object-cover" width="1920" height="1080" fetchpriority="high" /></picture>
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(10,10,11,0.88) 0%, rgba(10,10,11,0.94) 45%, rgba(10,10,11,0.99) 100%)"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(90% 70% at 50% 42%, rgba(201,164,92,0.16), transparent 62%)"></div>
+  </div>
+
+  <div class="orb orb-gold  w-[42vw] h-[42vw] -left-[12vw] top-[6vh]"  data-float="1"></div>
+  <div class="orb orb-beige w-[32vw] h-[32vw] -right-[6vw] top-[44vh]" data-float="2"></div>
+
+  <div class="shell relative z-10">
+
+    <!-- Badges -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 mb-9" data-reveal="up">
+      <span class="pill pill-gold"><i class="dot-pulse"></i> 8 September 2026</span>
+      <span class="pill pill-glass">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Regio Amsterdam
+      </span>
+      <span class="pill pill-glass" data-placeholder="seats">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Nog <span class="tnum mx-0.5" data-seats-left>12</span> van 40 plekken
+      </span>
+      <span class="pill pill-glass">25 Juni Uitverkocht</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="display display-md max-w-[16ch] mx-auto text-center mb-6" data-split="lines">
+      Je Hebt Iets te Zeggen. Tijd Dat de Zaal Het <em>Hoort</em>.
+    </h1>
+
+    <p class="lede !text-center mx-auto mb-10 max-w-[52ch]" data-reveal="up" data-reveal-delay="0.1">
+      Eén dag in Amsterdam waarin je jouw verhaal leert vertellen met de rust,
+      de spanning en de impact van een geboren spreker.
+      <span class="text-bone">Bekijk hieronder wat er op 8 september gebeurt.</span>
+    </p>
+
+    <!-- THE FILM
+         Breaks out of .shell's 1240 to 1560 so the film dominates the fold.
+         The negative inline margin cancels the shell's gutter, then the
+         padding puts a smaller one back, so it stays edge-safe on mobile. -->
+    <!-- The reveal sits on .vframe, not .vframe-wrap: the wrap's breakout
+         relies on its own margins, and GSAP writing transform on it is fine,
+         but keeping the two concerns on separate elements avoids surprises. -->
+    <div class="vframe-wrap mb-12">
+      <div class="vframe" id="heroVideo" data-vimeo="1076667567" data-reveal="scale" data-reveal-delay="0.15">
+        <!-- The poster is our own image, so the LCP never waits on Vimeo's
+             player bundle. The iframe is injected on click / on autoplay. -->
+        <!-- Poster must be 16:9 to match .vframe — a portrait source
+             centre-crops straight to a torso. -->
+        <button class="vframe-poster" id="heroPoster" aria-label="Speel de film af — MAIN CHARACTER Storytelling">
+          <picture><source srcset="assets/images/hero-poster.avif" type="image/avif" /><source srcset="assets/images/hero-poster.webp" type="image/webp" /><img src="assets/images/hero-poster.jpg" alt="Onyema Onwuka spreekt tijdens een Turning Point event, naast het MAIN CHARACTER scherm."
+               width="1280" height="720" fetchpriority="high" /></picture>
+          <span class="play-lg" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="absolute left-0 right-0 bottom-0 p-5 sm:p-7 text-left z-[3] pointer-events-none">
+            <span class="pill pill-glass mb-2.5">Film · 1:52</span>
+            <span class="display !text-[length:var(--step-1)] text-bone block">MAIN CHARACTER Storytelling</span>
+          </span>
+        </button>
+
+        <!-- The unmute button lived here. It existed only for the muted
+             ambient loop, which the facade removed: the film now mounts on
+             click and arrives with sound already on, so the poster's play
+             button is the whole affordance. main.js still guards for the
+             button, so re-adding it is enough if ambient autoplay ever comes
+             back (see README → Video). -->
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10" data-reveal="up" data-reveal-delay="0.2">
+      <a href="#ticket" class="btn btn-gold btn-lg" data-cta="hero-primary">
+        Claim Jouw Plek Voor €125
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#ervaring" class="btn btn-ghost btn-lg" data-cta="hero-secondary">
+        Bekijk De Dag
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </a>
+    </div>
+
+    <!-- Trust + countdown -->
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-14" data-reveal="up" data-reveal-delay="0.25">
+
+      <div class="flex items-center gap-4">
+        <span class="icon-ring" aria-hidden="true">
+          <!-- crown: authority -->
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M3 8l3.5 3L12 5l5.5 6L21 8l-1.6 10H4.6z" stroke-linejoin="round"/>
+            <circle cx="12" cy="3.2" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-snug text-left">
+          <span class="text-bone font-medium" data-placeholder="alumni-count">500+ sprekers</span> gingen je voor<br />
+          <span class="stars align-middle text-xs" aria-hidden="true">★★★★★</span>
+          <span data-placeholder="rating">4,9 gemiddeld</span>
+        </p>
+      </div>
+
+      <div class="hidden lg:block w-px h-12 bg-white/10" aria-hidden="true"></div>
+
+      <div class="text-center lg:text-left">
+        <p class="eyebrow mb-3">Deuren Open Over</p>
+        <div class="cd-grid" id="countdown" data-deadline="2026-09-08T09:30:00+02:00" role="timer" aria-live="off">
+          <div class="cd-unit glass-dark"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Dagen</span></div>
+          <div class="cd-unit glass-dark"><span class="cd-num" data-cd="hours">00</span><span class="cd-label">Uren</span></div>
+          <div class="cd-unit glass-dark"><span class="cd-num" data-cd="minutes">00</span><span class="cd-label">Min</span></div>
+          <div class="cd-unit glass-dark"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     2 · SOCIAL PROOF — six live counters
+     ══════════════════════════════════════════════════════════════════════════ -->
+<!-- Seam: the hero and this band are both dark and used to read as one
+     endless surface. See main.css §4b. -->
+<div class="seam" aria-hidden="true"></div>
+
+<section class="section-compact border-b border-[color:var(--ink-line)] bg-[color:var(--ink-soft)] relative overflow-hidden" id="proof">
+  <div class="shell relative z-[2]">
+
+    <p class="eyebrow text-center mb-3">In Cijfers</p>
+    <h2 class="display display-sm text-center max-w-[20ch] mx-auto mb-9" data-split="lines">
+      Wat Er Gebeurt Als Mensen Hun Verhaal <em>Vinden</em>
+    </h2>
+
+    <!-- ⚠️ PLACEHOLDER: every figure below needs verification -->
+    <!-- One horizontal snap row on phones; the signed-off 3-up grid at lg. -->
+    <div class="stats-row" data-stagger data-placeholder="stat">
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="500" data-count-suffix="+">0</span>
+        <span class="stat-label">Sprekers Begeleid</span>
+      </div>
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="120" data-count-suffix="+">0</span>
+        <span class="stat-label">Events Geregisseerd</span>
+      </div>
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="12">0</span>
+        <span class="stat-label">Jaar Ervaring</span>
+      </div>
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="1400" data-count-suffix="+">0</span>
+        <span class="stat-label">Deelnemers Getraind</span>
+      </div>
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="3200" data-count-suffix="+">0</span>
+        <span class="stat-label">Levens Veranderd</span>
+      </div>
+      <div class="stat glass-dark" data-reveal="up">
+        <span class="stat-num" data-count="98" data-count-suffix="%">0</span>
+        <span class="stat-label">Voelt Zich Zekerder Op Het Podium</span>
+      </div>
+    </div>
+
+    <!-- Brand universe -->
+    <div class="mt-10 pt-8 border-t border-[color:var(--ink-line)]">
+      <p class="eyebrow text-center mb-7 opacity-70">Het MAIN CHARACTER Universum</p>
+      <div class="marquee" aria-label="Programma's van MAIN CHARACTER">
+        <div class="marquee-track">
+          <span class="logo-mark">Verenigde Naties</span>
+          <span class="logo-mark">Main Character Method</span>
+          <span class="logo-mark">Turning Point</span>
+          <span class="logo-mark">De Nieuwe Leider Spreekt</span>
+          <span class="logo-mark">Staande Ovatie</span>
+          <span class="logo-mark">Main Character Experience</span>
+        </div>
+        <div class="marquee-track" aria-hidden="true">
+          <span class="logo-mark">Verenigde Naties</span>
+          <span class="logo-mark">Main Character Method</span>
+          <span class="logo-mark">Turning Point</span>
+          <span class="logo-mark">De Nieuwe Leider Spreekt</span>
+          <span class="logo-mark">Staande Ovatie</span>
+          <span class="logo-mark">Main Character Experience</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     3 · EMOTIONAL STORY
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-light" id="verhaal">
+  <div class="shell">
+    <div class="grid lg:grid-cols-2 gap-14 lg:gap-24 items-center">
+
+      <div class="overlap lg:sticky lg:top-28" data-reveal="right">
+        <div class="media media-tone overlap-back ratio-tall" data-parallax="0.08">
+          <picture><source srcset="assets/images/story-audience.avif" type="image/avif" /><source srcset="assets/images/story-audience.webp" type="image/webp" /><img src="assets/images/story-audience.jpg" alt="Deelnemers luisteren aandachtig tijdens een MAIN CHARACTER event."
+               loading="lazy" width="900" height="1200" /></picture>
+        </div>
+        <div class="overlap-front">
+          <div class="media media-tone !rounded-none ratio-square">
+            <picture><source srcset="assets/images/story-listeners.avif" type="image/avif" /><source srcset="assets/images/story-listeners.webp" type="image/webp" /><img src="assets/images/story-listeners.jpg" alt="Twee deelnemers luisteren geconcentreerd naar een verhaal."
+                 loading="lazy" width="900" height="675" /></picture>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">Herken Je Dit</p>
+
+        <h2 class="display display-md mb-9" data-split="lines">
+          Je Kende Het Antwoord. En Je Zei <em>Niets</em>.
+        </h2>
+
+        <div class="space-y-6 text-[color:var(--text-on-light-muted)] max-w-[54ch] prose-justify">
+          <p data-reveal="up" data-reveal-delay="0.05" class="text-[color:var(--ink)] text-[length:var(--step-1)] font-light leading-relaxed">
+            De vergadering liep vast. Jij wist wat er moest gebeuren. Je voelde het
+            in je lijf. Dat lichte duwtje richting het spreken.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.1">
+            En toen deed iemand anders zijn mond open. Zei ongeveer wat jij dacht.
+            Minder precies. Minder doorleefd. En de zaal knikte.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.15">
+            Je fietste naar huis met dat bekende, zeurende gevoel. Niet van
+            jaloezie. Van gemis. Alsof je iets in de kamer had achtergelaten dat
+            van jou was.
+          </p>
+
+          <hr class="rule my-9" data-reveal="up" />
+
+          <p data-reveal="up" class="text-[color:var(--ink)] text-[length:var(--step-1)] font-light leading-relaxed">
+            Hier is wat niemand je vertelt: het ligt niet aan je verhaal.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.05">
+            Je hébt een verhaal. Je hebt er honderd. Ze liggen achter een deur die
+            je nooit hebt leren openen, omdat niemand het je ooit heeft geleerd.
+            Niet op school. Niet op je werk. Nergens.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.1">
+            Spreken is geen talent waarmee je geboren wordt. Het is een deur.
+            En deuren hebben een sleutel.
+          </p>
+
+          <p data-reveal="up" data-reveal-delay="0.15" class="!mt-10 display display-sm text-[color:var(--ink)]">
+            Op 8 September Krijg Je die <em>Sleutel</em>.
+          </p>
+
+          <p class="!mt-8" data-reveal="up" data-reveal-delay="0.2">
+            <a href="#programma" class="btn-text" data-cta="story">
+              Kijk Wat Je Die Dag Leert
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     4 · WHY PEOPLE STAY INVISIBLE
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section relative overflow-hidden gradient-warm grain">
+  <div class="shell relative z-[2]">
+
+    <div class="mb-16">
+      <p class="eyebrow mb-6" data-reveal="up">De Zes Deuren</p>
+      <h2 class="display display-md max-w-[20ch]" data-split="lines">
+        Waarom Sterke Mensen <em>Onzichtbaar</em> Blijven.
+      </h2>
+      <p class="lede mt-6" data-reveal="up" data-reveal-delay="0.1">
+        Het is bijna nooit gebrek aan moed. Het is een van deze zes.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 00-4 12.7V17a2 2 0 002 2h4a2 2 0 002-2v-2.3A7 7 0 0012 2z"/><path d="M9 22h6"/></svg>
+          </div>
+          <span class="card-index">01</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">De Vloek Van De Expert</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Je weet zóveel dat je vergeet hoe het was om het níet te weten. Je begint
+          bij hoofdstuk zeven. De zaal zit nog op de kaft.
+        </p>
+      </article>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18M3 12h12M3 19h7"/></svg>
+          </div>
+          <span class="card-index">02</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">Je Geeft Feiten, Geen Verhaal</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Feiten overtuigen niemand. Ze bevestigen alleen wat men al vond.
+          Een verhaal verplaatst mensen. Daarom onthouden ze het.
+        </p>
+      </article>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <span class="card-index">03</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">Je Wacht Op Zelfvertrouwen</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Je wacht tot je er klaar voor bent. Maar zelfvertrouwen komt ná het
+          podium, nooit ervoor. Wachten is de enige garantie op stilstand.
+        </p>
+      </article>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/></svg>
+          </div>
+          <span class="card-index">04</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">Je Kopieert Je Held</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Je leende de gebaren van een spreker die je bewondert. De zaal voelt de
+          kopie feilloos aan. Er is al iemand die dat is. Er is er maar één jij.
+        </p>
+      </article>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M5 9l7-7 7 7"/></svg>
+          </div>
+          <span class="card-index">05</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">Je Oefent Woorden, Niet Je Lijf</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Je script zit perfect. Je adem niet. De zaal luistert eerst naar je
+          lichaam. Je woorden komen op de tweede plaats.
+        </p>
+      </article>
+
+      <article class="card card-hover card-glow" data-reveal="up" tabindex="0">
+        <div class="flex items-start justify-between mb-7">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20a6.5 6.5 0 0113 0"/></svg>
+          </div>
+          <span class="card-index">06</span>
+        </div>
+        <h3 class="display display-sm !text-[length:var(--step-1)] mb-3 text-bone">Je Speelt Voor De Zaal</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] leading-relaxed">
+          Een zaal is een abstractie. Je kunt niet raken wat je niet ziet. Grote
+          sprekers praten tegen één mens. De rest luistert mee.
+        </p>
+      </article>
+
+    </div>
+
+    <!-- Glass CTA: the grain and gradient behind it give it something to refract -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14" data-reveal="up">
+      <p class="text-sm text-[color:var(--text-on-dark-muted)]">Herken je er één? Dan is 8 september voor jou.</p>
+      <a href="#ticket" class="btn btn-glass" data-cta="doors">
+        Open De Deur
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     5 · THE TRANSFORMATION
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section relative overflow-hidden">
+  <div class="shell">
+
+    <div class="text-center mb-16">
+      <p class="eyebrow mb-6" data-reveal="up">De Verschuiving</p>
+      <h2 class="display display-md max-w-[16ch] mx-auto" data-split="lines">
+        Eén Dag. Twee <em>Versies</em> van Jou.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-5xl mx-auto">
+
+      <div class="ba-col ba-before !p-0 overflow-hidden" data-reveal="right">
+        <div class="media media-tone ratio-video !rounded-none">
+          <picture><source srcset="assets/images/shift-today.avif" type="image/avif" /><source srcset="assets/images/shift-today.webp" type="image/webp" /><img src="assets/images/shift-today.jpg" alt="Iemand alleen in het donker, in zichzelf gekeerd en onzeker."
+               loading="lazy" width="1000" height="563" /></picture>
+        </div>
+        <div class="p-7 lg:p-9">
+          <span class="pill mb-6 inline-flex" style="background:rgba(255,255,255,0.06);border:1px solid var(--ink-line)">Vandaag</span>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Je hart bonkt al drie dagen voor de presentatie.</p></div>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Je leest je slides voor. De zaal leest mee.</p></div>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Je praat sneller zodra je zenuwachtig wordt.</p></div>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Na afloop: beleefd applaus. Geen enkele vraag.</p></div>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Je zegt "nee" tegen podia. Elke keer weer.</p></div>
+          <div class="ba-row"><span class="ba-icon opacity-40" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></span><p class="text-sm">Mensen kennen je werk. Ze kennen jou niet.</p></div>
+        </div>
+      </div>
+
+      <div class="ba-col ba-after !p-0 overflow-hidden" data-reveal="left" data-reveal-delay="0.1">
+        <div class="media media-tone ratio-video !rounded-none">
+          <picture><source srcset="assets/images/exp-onyema-mic.avif" type="image/avif" /><source srcset="assets/images/exp-onyema-mic.webp" type="image/webp" /><img src="assets/images/exp-onyema-mic.jpg" alt="Onyema Onwuka met microfoon in de zaal tijdens een Turning Point event."
+               loading="lazy" width="1000" height="750" /></picture>
+        </div>
+        <div class="p-7 lg:p-9">
+          <span class="pill pill-gold mb-6 inline-flex">Na 8 September</span>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Spanning voelt als brandstof, niet als bedreiging.</p></div>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Je vertelt. Slides zijn decor geworden.</p></div>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Je durft te zwijgen. De stilte werkt vóór je.</p></div>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Na afloop staat er een rij. Ze willen verder praten.</p></div>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Je zegt "ja" en kijkt uit naar de dag zelf.</p></div>
+          <div class="ba-row"><span class="ba-icon text-gold" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><p class="text-sm">Mensen kennen jou. Daarom kiezen ze je werk.</p></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-center text-sm text-[color:var(--text-on-dark-muted)] mt-10 mb-14" data-reveal="up">
+      Geen persoonlijkheidstransplantatie. Dezelfde jij, met de deur open.
+    </p>
+
+    <!-- Split CTA: statement left, action right -->
+    <div class="cta-split max-w-5xl mx-auto" data-reveal="up">
+      <div>
+        <p class="eyebrow mb-4">Van Links Naar Rechts</p>
+        <h3 class="display display-sm !text-[length:var(--step-2)] text-bone mb-3">
+          Eén Dag Zit Tussen Die Twee Kolommen.
+        </h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[42ch]">
+          Niet een jaar therapie. Niet tien cursussen. Eén dag, één zaal, en
+          een groep die je ziet staan.
+        </p>
+      </div>
+      <div class="cta-split-action">
+        <div class="flex items-baseline gap-3 mb-1">
+          <span class="text-[color:var(--text-on-dark-muted)] line-through tnum">€500</span>
+          <span class="display !text-[length:var(--step-3)] text-bone tnum">€125</span>
+        </div>
+        <p class="text-xs text-[color:var(--text-on-dark-muted)] mb-6">eenmalig · incl. btw</p>
+        <a href="#ticket" class="btn btn-gold btn-block" data-cta="shift">
+          Zet De Stap
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     6 · EVENT EXPERIENCE — cinematic, full-bleed
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="relative py-16 lg:py-20 bg-[color:var(--ink-soft)] overflow-hidden" id="ervaring">
+
+  <div class="shell mb-10">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+      <div>
+        <p class="eyebrow mb-6" data-reveal="up">De Ervaring</p>
+        <h2 class="display display-md max-w-[18ch]" data-split="lines">
+          Dit Is Geen Cursus. Dit Is een <em>Zaal</em>.
+        </h2>
+      </div>
+      <p class="lede lg:max-w-[38ch] lg:text-right" data-reveal="up" data-reveal-delay="0.1">
+        Echt licht. Echt publiek. Echte zenuwen. Je stapt niet op met theorie.
+        Je stapt op met je verhaal, en je stapt af als iemand anders.
+      </p>
+    </div>
+  </div>
+
+  <!-- Drifting strip -->
+  <div class="flex gap-4 mb-4" data-marquee-scroll="-8">
+    <div class="media media-zoom media-tone flex-none w-[62vw] md:w-[38vw] aspect-[4/3]">
+      <picture><source srcset="assets/images/exp-turningpoint.avif" type="image/avif" /><source srcset="assets/images/exp-turningpoint.webp" type="image/webp" /><img src="assets/images/exp-turningpoint.jpg" alt="Onyema Onwuka opent een Turning Point event voor de groep." loading="lazy" width="1000" height="750" /></picture>
+    </div>
+    <div class="media media-zoom media-tone flex-none w-[62vw] md:w-[38vw] aspect-[4/3]">
+      <picture><source srcset="assets/images/exp-onyema-speak.avif" type="image/avif" /><source srcset="assets/images/exp-onyema-speak.webp" type="image/webp" /><img src="assets/images/exp-onyema-speak.jpg" alt="Onyema Onwuka spreekt de zaal toe." loading="lazy" width="1000" height="750" /></picture>
+    </div>
+    <div class="media media-zoom media-tone flex-none w-[62vw] md:w-[38vw] aspect-[4/3]">
+      <picture><source srcset="assets/images/exp-duo-stage.avif" type="image/avif" /><source srcset="assets/images/exp-duo-stage.webp" type="image/webp" /><img src="assets/images/exp-duo-stage.jpg" alt="Een deelnemer staat met de microfoon naast Onyema Onwuka." loading="lazy" width="1000" height="750" /></picture>
+    </div>
+    <div class="media media-zoom media-tone flex-none w-[62vw] md:w-[38vw] aspect-[4/3]">
+      <picture><source srcset="assets/images/exp-circle.avif" type="image/avif" /><source srcset="assets/images/exp-circle.webp" type="image/webp" /><img src="assets/images/exp-circle.jpg" alt="Deelnemers in een kring tijdens een MAIN CHARACTER sessie." loading="lazy" width="1000" height="750" /></picture>
+    </div>
+    <div class="media media-zoom media-tone flex-none w-[62vw] md:w-[38vw] aspect-[4/3]">
+      <picture><source srcset="assets/images/exp-interaction.avif" type="image/avif" /><source srcset="assets/images/exp-interaction.webp" type="image/webp" /><img src="assets/images/exp-interaction.jpg" alt="Onyema Onwuka in gesprek met de zaal." loading="lazy" width="1000" height="750" /></picture>
+    </div>
+  </div>
+
+  <!-- Cinematic feature -->
+  <div class="shell-wide px-[var(--gutter)]">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-4">
+
+      <div class="media ratio-video relative" data-reveal="scale">
+        <picture><source srcset="assets/images/exp-hall.avif" type="image/avif" /><source srcset="assets/images/exp-hall.webp" type="image/webp" /><img src="assets/images/exp-hall.jpg" alt="Een volle zaal tijdens een MAIN CHARACTER event in een monumentale locatie." loading="lazy" width="1400" height="788" /></picture>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-[2]">
+          <p class="eyebrow mb-2">De Vorige Editie</p>
+          <p class="display display-sm !text-[length:var(--step-2)] text-bone">25 juni uitverkocht in twee weken</p>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] mt-2 max-w-[44ch]">
+            Dezelfde zaal. Dezelfde regie. Op 8 september is er nog plek voor
+            <span class="text-gold" data-placeholder="seats"><span data-seats-left>12</span> mensen</span>.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-rows-2 gap-4">
+        <div class="media media-zoom media-tone relative min-h-[180px]" data-reveal="left">
+          <picture><source srcset="assets/images/workbook-writing.avif" type="image/avif" /><source srcset="assets/images/workbook-writing.webp" type="image/webp" /><img src="assets/images/workbook-writing.jpg" alt="Deelnemer schrijft het eigen verhaal uit op een typemachine." loading="lazy" width="800" height="600" /></picture>
+          <div class="absolute bottom-0 left-0 p-6 z-[2]">
+            <p class="text-sm text-bone font-medium">Jouw Verhaal Op Papier</p>
+            <p class="text-xs text-[color:var(--text-on-dark-muted)]">Framework + workbook</p>
+          </div>
+        </div>
+        <div class="media media-zoom media-tone relative min-h-[180px]" data-reveal="left" data-reveal-delay="0.08">
+          <picture><source srcset="assets/images/exp-drums.avif" type="image/avif" /><source srcset="assets/images/exp-drums.webp" type="image/webp" /><img src="assets/images/exp-drums.jpg" alt="Deelnemers tijdens een gezamenlijke sessie met djembés." loading="lazy" width="1000" height="750" /></picture>
+          <div class="absolute bottom-0 left-0 p-6 z-[2]">
+            <p class="text-sm text-bone font-medium">Iedereen Staat Op</p>
+            <p class="text-xs text-[color:var(--text-on-dark-muted)]">Geen toeschouwers</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     7 · SPEAKER — Onyema
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-warm" id="onyema">
+  <div class="shell">
+    <div class="grid lg:grid-cols-[0.9fr_1fr] gap-14 lg:gap-20 items-start">
+
+      <div class="lg:sticky lg:top-28">
+        <div class="media media-plain ratio-portrait mb-4" data-reveal="right">
+          <picture><source srcset="assets/images/onyema-portrait.avif" type="image/avif" /><source srcset="assets/images/onyema-portrait.webp" type="image/webp" /><img src="assets/images/onyema-portrait.jpg" alt="Portret van Onyema Onwuka in wit pak en witte hoed."
+               loading="lazy" width="900" height="1200" /></picture>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div class="media media-zoom media-tone ratio-square">
+            <picture><source srcset="assets/images/onyema-mic.avif" type="image/avif" /><source srcset="assets/images/onyema-mic.webp" type="image/webp" /><img src="assets/images/onyema-mic.jpg" alt="Onyema Onwuka houdt een microfoon vast." loading="lazy" width="800" height="600" /></picture>
+          </div>
+          <div class="media media-zoom media-tone ratio-square">
+            <picture><source srcset="assets/images/exp-onyema-mic.avif" type="image/avif" /><source srcset="assets/images/exp-onyema-mic.webp" type="image/webp" /><img src="assets/images/exp-onyema-mic.jpg" alt="Onyema Onwuka spreekt met microfoon in de zaal." loading="lazy" width="1000" height="750" /></picture>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="card card-light !p-5" data-reveal="up">
+            <p class="display !text-[length:var(--step-2)] text-[color:var(--ink)]" data-placeholder="stat"><span data-count="12">0</span></p>
+            <p class="text-xs text-[color:var(--text-on-light-muted)] mt-1">Jaar op en achter het podium</p>
+          </div>
+          <div class="card card-light !p-5" data-reveal="up" data-reveal-delay="0.05">
+            <p class="display !text-[length:var(--step-2)] text-[color:var(--ink)]" data-placeholder="stat"><span data-count="120" data-count-suffix="+">0</span></p>
+            <p class="text-xs text-[color:var(--text-on-light-muted)] mt-1">Events geregisseerd</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-6" data-reveal="up">
+          <span class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M3 8l3.5 3L12 5l5.5 6L21 8l-1.6 10H4.6z" stroke-linejoin="round"/>
+              <circle cx="12" cy="3.2" r="1.1" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <p class="eyebrow eyebrow--muted">Je Regisseur Voor Die Dag</p>
+        </div>
+
+        <h2 class="display display-md mb-4" data-split="lines">Onyema Onwuka</h2>
+        <p class="text-[length:var(--step-1)] text-[color:var(--text-on-light-muted)] font-light mb-10" data-reveal="up" data-reveal-delay="0.05">
+          Regie en sprekerscoaching. Voor ondernemers die hun podiumkracht willen inzetten.
+        </p>
+
+        <div class="space-y-6 text-[color:var(--text-on-light-muted)] max-w-[56ch] prose-justify">
+          <p data-reveal="up">
+            Onyema begon niet als spreker. Hij begon in het donker, achter de
+            knoppen, naast het podium, met een headset op. Twaalf jaar lang keek
+            hij van opzij naar wat een zaal wél en niet doet.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.05">
+            Hij zag briljante mensen een zaal verliezen in negentig seconden. Hij
+            zag stille mensen een zaal laten opstaan. En hij zag precies waar het
+            verschil zat: nooit in het talent. Altijd in de regie.
+          </p>
+          <p data-reveal="up" data-reveal-delay="0.1">
+            Van podia bij de Verenigde Naties tot zalen met tien mensen.
+            Hetzelfde patroon, elke keer. Dat patroon werd de MAIN CHARACTER
+            Methode. En die methode geeft hij op 8 september aan jou.
+          </p>
+        </div>
+
+        <blockquote class="mt-11 pl-7 border-l-2 border-gold" data-reveal="up">
+          <p class="display display-sm !text-[length:var(--step-2)] text-[color:var(--ink)] leading-tight">
+            "Ik maak geen sprekers. Ik haal weg wat er tussen jou en de zaal in staat."
+          </p>
+          <footer class="text-sm text-[color:var(--text-on-light-muted)] mt-4">Onyema Onwuka</footer>
+        </blockquote>
+
+        <div class="grid sm:grid-cols-3 gap-3 mt-12" data-stagger>
+          <div class="card card-light !p-5" data-reveal="up">
+            <p class="eyebrow eyebrow--muted mb-3">Missie</p>
+            <p class="text-sm text-[color:var(--text-on-light-muted)]">Dat de mensen met iets te zeggen ook gehoord worden.</p>
+          </div>
+          <div class="card card-light !p-5" data-reveal="up" data-reveal-delay="0.05">
+            <p class="eyebrow eyebrow--muted mb-3">Methode</p>
+            <p class="text-sm text-[color:var(--text-on-light-muted)]">Regie, niet trucjes. Je eigen stem, scherper afgesteld.</p>
+          </div>
+          <div class="card card-light !p-5" data-reveal="up" data-reveal-delay="0.1">
+            <p class="eyebrow eyebrow--muted mb-3">Belofte</p>
+            <p class="text-sm text-[color:var(--text-on-light-muted)]">Je staat die dag op. Zonder uitzondering.</p>
+          </div>
+        </div>
+
+        <div class="mt-10" data-reveal="up">
+          <a href="#ticket" class="btn btn-outline" data-cta="onyema">
+            Laat Onyema Jou Regisseren
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     8 · WHAT YOU WILL LEARN
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-light" id="programma">
+  <div class="shell">
+
+    <div class="grid lg:grid-cols-[1fr_0.7fr] gap-14 lg:gap-20 items-start">
+
+      <div>
+        <div class="mb-14">
+          <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">Het Programma</p>
+          <h2 class="display display-md max-w-[19ch]" data-split="lines">
+            Vijf Bewegingen van Stil naar <em>Staand</em>.
+          </h2>
+        </div>
+
+        <div class="timeline" id="curriculum">
+          <div class="timeline-progress" data-timeline-progress></div>
+
+          <div class="timeline-item pb-14" data-reveal="up" data-timeline-item>
+            <span class="timeline-node"></span>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class="card-index !text-[color:var(--gold-deep)]">01</span>
+              <h3 class="display !text-[length:var(--step-2)] text-[color:var(--ink)]">Natuurlijke Kracht</h3>
+            </div>
+            <p class="text-[color:var(--text-on-light-muted)] max-w-[52ch]">
+              Presence zonder pose. Je leert je zenuwen niet wegademen maar
+              omzetten, zodat je lijf rust uitstraalt op het moment dat het telt.
+              Geen trucjes. Alleen jij, beter afgesteld.
+            </p>
+          </div>
+
+          <div class="timeline-item pb-14" data-reveal="up" data-timeline-item>
+            <span class="timeline-node"></span>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class="card-index !text-[color:var(--gold-deep)]">02</span>
+              <h3 class="display !text-[length:var(--step-2)] text-[color:var(--ink)]">Pure Impact</h3>
+            </div>
+            <p class="text-[color:var(--text-on-light-muted)] max-w-[52ch]">
+              Waarom de ene zin een zaal stil krijgt en de andere langs iedereen
+              heen glijdt. Je leert de emotionele lijn onder je boodschap
+              blootleggen en die durven laten staan.
+            </p>
+          </div>
+
+          <div class="timeline-item pb-14" data-reveal="up" data-timeline-item>
+            <span class="timeline-node"></span>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class="card-index !text-[color:var(--gold-deep)]">03</span>
+              <h3 class="display !text-[length:var(--step-2)] text-[color:var(--ink)]">Prachtig Verhaal</h3>
+            </div>
+            <p class="text-[color:var(--text-on-light-muted)] max-w-[52ch]">
+              Het MAIN CHARACTER Storytelling Framework: vijf concrete stappen die
+              van een anekdote een ervaring maken. Je gaat naar huis met jouw
+              verhaal. Af, getest, en op maat van jouw zaal.
+            </p>
+          </div>
+
+          <div class="timeline-item pb-14" data-reveal="up" data-timeline-item>
+            <span class="timeline-node"></span>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class="card-index !text-[color:var(--gold-deep)]">04</span>
+              <h3 class="display !text-[length:var(--step-2)] text-[color:var(--ink)]">Arena Presence</h3>
+            </div>
+            <p class="text-[color:var(--text-on-light-muted)] max-w-[52ch]">
+              Tien mensen of tienduizend. Het mechanisme is identiek, de schaal
+              niet. Je leert een ruimte lezen en je aanwezigheid meebewegen met de
+              maat van de zaal.
+            </p>
+          </div>
+
+          <div class="timeline-item" data-reveal="up" data-timeline-item>
+            <span class="timeline-node"></span>
+            <div class="flex flex-wrap items-baseline gap-3 mb-3">
+              <span class="card-index !text-[color:var(--gold-deep)]">05</span>
+              <h3 class="display !text-[length:var(--step-2)] text-[color:var(--ink)]">Van Podium Naar Arena</h3>
+            </div>
+            <p class="text-[color:var(--text-on-light-muted)] max-w-[52ch]">
+              Kennis verandert niemand. Beweging wel. De laatste beweging gaat over
+              de vraag die elke grote spreker beantwoordt: wat doet de zaal morgen
+              anders, en hoe vraag je daarom?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:sticky lg:top-28" data-reveal="left">
+        <div class="media media-tone ratio-tall mb-4">
+          <picture><source srcset="assets/images/onyema-papers.avif" type="image/avif" /><source srcset="assets/images/onyema-papers.webp" type="image/webp" /><img src="assets/images/onyema-papers.jpg" alt="Onyema Onwuka leest het uitgeschreven verhaal van een deelnemer."
+               loading="lazy" width="800" height="1000" /></picture>
+        </div>
+        <div class="card card-light !p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="icon-ring !w-9 !h-9" aria-hidden="true">
+              <!-- microphone: the stage -->
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="9" y="2" width="6" height="11" rx="3"/>
+                <path d="M5 10a7 7 0 0014 0M12 17v5M8 22h8"/>
+              </svg>
+            </span>
+            <p class="text-sm font-medium text-[color:var(--ink)]">Je Gaat Naar Huis Met</p>
+          </div>
+          <ul class="space-y-2.5 text-sm text-[color:var(--text-on-light-muted)]">
+            <li class="flex gap-2.5"><svg class="text-[color:var(--gold-deep)] flex-none mt-1" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Eén af verhaal, live getest op een echte zaal</li>
+            <li class="flex gap-2.5"><svg class="text-[color:var(--gold-deep)] flex-none mt-1" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Het complete Storytelling Framework</li>
+            <li class="flex gap-2.5"><svg class="text-[color:var(--gold-deep)] flex-none mt-1" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Persoonlijke regie van Onyema</li>
+            <li class="flex gap-2.5"><svg class="text-[color:var(--gold-deep)] flex-none mt-1" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Een groep die je heeft zien staan</li>
+          </ul>
+
+          <a href="#ticket" class="btn-text mt-6" data-cta="programma">
+            Reserveer Jouw Plek
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     9 · OFFER + BONUSES
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section relative overflow-hidden gradient-warm grain" id="ticket">
+  <div class="orb orb-gold w-[45vw] h-[45vw] left-[55%] -top-[10vh] opacity-60" data-float="1"></div>
+
+  <div class="shell relative z-[2]">
+    <div class="text-center mb-16">
+      <p class="eyebrow mb-6" data-reveal="up">Wat Je Krijgt</p>
+      <h2 class="display display-md max-w-[15ch] mx-auto" data-split="lines">Eén Ticket. <em>Vijf</em> Onderdelen.</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-[1fr_0.85fr] gap-4 lg:gap-6 items-start max-w-5xl mx-auto">
+
+      <div class="space-y-3" data-stagger>
+
+        <article class="card card-hover card-glow flex gap-5" data-reveal="up">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M3 8l3.5 3L12 5l5.5 6L21 8l-1.6 10H4.6z" stroke-linejoin="round"/>
+              <circle cx="12" cy="3.2" r="1.1" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h3 class="display !text-[length:var(--step-1)] text-bone">De Live Podiumdag In Amsterdam</h3>
+              <span class="pill pill-gold flex-none">Kern</span>
+            </div>
+            <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+              Een volledige dag in een echte zaal, met echt licht en echt publiek.
+              Iedereen staat op. Iedereen krijgt regie. Niemand kijkt alleen toe.
+            </p>
+          </div>
+        </article>
+
+        <article class="card card-hover card-glow flex gap-5" data-reveal="up" data-reveal-delay="0.05">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h3 class="display !text-[length:var(--step-1)] text-bone">8 Video's, Opgenomen In Het Theater</h3>
+              <span class="pill pill-glass flex-none">t.w.v. €297</span>
+            </div>
+            <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+              Je online leeromgeving. Geen cursus voor je webcam maar acht lessen
+              gefilmd op locatie, zodat je de dag al kent voordat je binnenloopt.
+            </p>
+          </div>
+        </article>
+
+        <article class="card card-hover card-glow flex gap-5" data-reveal="up" data-reveal-delay="0.1">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h3 class="display !text-[length:var(--step-1)] text-bone">Live Q&amp;A Met Onyema</h3>
+              <span class="pill pill-glass flex-none">t.w.v. €197</span>
+            </div>
+            <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+              De week vóór het event. Jouw vragen, jouw verhaal, jouw twijfel,
+              live beantwoord, zodat je 8 september binnenkomt zonder ruis.
+            </p>
+          </div>
+        </article>
+
+        <article class="card card-hover card-glow flex gap-5" data-reveal="up" data-reveal-delay="0.15">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h3 class="display !text-[length:var(--step-1)] text-bone">Het Storytelling Framework + Workbook</h3>
+              <span class="pill pill-glass flex-none">t.w.v. €149</span>
+            </div>
+            <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+              Het complete MAIN CHARACTER raamwerk op papier. Niet om te lezen maar
+              om in te schrijven. Je verlaat de dag met een af verhaal.
+            </p>
+          </div>
+        </article>
+
+        <article class="card card-hover card-glow flex gap-5" data-reveal="up" data-reveal-delay="0.2">
+          <div class="icon-ring" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="9" y="2" width="6" height="11" rx="3"/>
+              <path d="M5 10a7 7 0 0014 0M12 17v5M8 22h8"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h3 class="display !text-[length:var(--step-1)] text-bone">Persoonlijke Regie &amp; Feedback</h3>
+              <span class="pill pill-glass flex-none">Onbetaalbaar</span>
+            </div>
+            <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+              Onyema kijkt naar jou. Niet naar de groep. Directe, eerlijke,
+              bruikbare regie op het moment dat je staat.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Price card -->
+      <aside class="card !p-0 overflow-hidden lg:sticky lg:top-28" data-reveal="scale" style="border-color:rgba(201,164,92,0.34)">
+        <div class="media media-plain aspect-[16/10] !rounded-none">
+          <picture><source srcset="assets/images/workbook-typewriter.avif" type="image/avif" /><source srcset="assets/images/workbook-typewriter.webp" type="image/webp" /><img src="assets/images/workbook-typewriter.jpg" alt="Een typemachine en gouden schoenen op witte tule — het MAIN CHARACTER workbook." loading="lazy" width="800" height="600" /></picture>
+          <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(19,19,22,0.98), transparent 70%)"></div>
+        </div>
+
+        <div class="p-7 pb-6 text-center border-b border-[color:var(--ink-line)] -mt-10 relative z-[2]">
+          <p class="eyebrow mb-5">Jouw Ticket</p>
+
+          <div class="flex items-baseline justify-center gap-3 mb-1">
+            <span class="text-[color:var(--text-on-dark-muted)] line-through text-lg tnum">€500</span>
+            <span class="display !text-[length:var(--step-4)] text-bone tnum">€125</span>
+          </div>
+          <p class="text-xs text-[color:var(--text-on-dark-muted)]">eenmalig · incl. btw · alle vijf onderdelen</p>
+
+          <div class="mt-5 pt-5 border-t border-[color:var(--ink-line)] flex items-center justify-between text-sm">
+            <span class="text-[color:var(--text-on-dark-muted)]">Totale waarde</span>
+            <span class="text-bone tnum">€643+</span>
+          </div>
+          <div class="flex items-center justify-between text-sm mt-2">
+            <span class="text-[color:var(--text-on-dark-muted)]">Jij betaalt vandaag</span>
+            <span class="text-gold font-semibold tnum">€125</span>
+          </div>
+        </div>
+
+        <div class="p-7">
+          <a href="checkout.html" class="btn btn-gold btn-block btn-lg mb-4" data-cta="offer">
+            Claim Jouw Plek
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+
+          <div class="meter mb-2.5"><i class="meter-fill" data-meter="70"></i></div>
+          <p class="text-xs text-center text-[color:var(--text-on-dark-muted)] mb-6">
+            <span data-placeholder="seats"><span class="text-gold tnum" data-seats-left>12</span> van 40 plekken over</span>
+          </p>
+
+          <ul class="space-y-3 text-xs text-[color:var(--text-on-dark-muted)]">
+            <li class="flex items-center gap-2.5">
+              <svg class="text-gold flex-none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Veilig betalen via iDEAL, kaart of Bancontact
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="text-gold flex-none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Direct toegang tot je leeromgeving
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="text-gold flex-none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <span data-placeholder="guarantee">Niet jouw dag? Geld terug.</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     10 · TESTIMONIALS
+     The Brenda Kouwenhoven card is REAL — her own recorded words from
+     assets/video/testimonial-brenda.mp4. Everything else is placeholder.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-light overflow-hidden" id="verhalen">
+  <div class="shell">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
+      <div>
+        <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">De Zaal Aan Het Woord</p>
+        <h2 class="display display-md max-w-[15ch]" data-split="lines">Ze Stonden Waar Jij Nu <em>Staat</em>.</h2>
+      </div>
+      <!-- The prev/next arrows are gone with the old carousel: the loop moves
+           on its own and pauses on hover, so manual controls would fight it. -->
+      <div class="flex items-center gap-4" data-reveal="up">
+        <div class="text-right">
+          <div class="stars text-lg" aria-hidden="true">★★★★★</div>
+          <p class="text-xs text-[color:var(--text-on-light-muted)] mt-1" data-placeholder="rating">
+            4,9 gemiddeld · <span class="tnum">87</span> beoordelingen
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero testimonial — the real one -->
+  <div class="shell mb-4">
+    <div class="card card-light !p-0 overflow-hidden grid lg:grid-cols-[0.8fr_1fr]" data-reveal="up">
+      <div class="media media-plain !rounded-none relative min-h-[380px] lg:min-h-[520px]">
+        <picture><source srcset="assets/video/testimonial-brenda-poster.avif" type="image/avif" /><source srcset="assets/video/testimonial-brenda-poster.webp" type="image/webp" /><img src="assets/video/testimonial-brenda-poster.jpg" alt="Brenda Kouwenhoven vertelt over haar ervaring met de MAIN CHARACTER Methode."
+             loading="lazy" width="540" height="954" class="!object-cover" /></picture>
+        <button class="play-btn" data-video="assets/video/testimonial-brenda.mp4" aria-label="Bekijk de videoreactie van Brenda Kouwenhoven">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <span class="pill pill-glass absolute top-5 left-5 z-[2]">Video · 1:30</span>
+      </div>
+
+      <div class="p-8 lg:p-12 flex flex-col justify-center">
+        <div class="quote-mark mb-4" aria-hidden="true">"</div>
+        <div class="stars mb-6" aria-hidden="true">★★★★★</div>
+
+        <blockquote class="display !text-[length:var(--step-2)] !leading-[1.3] text-[color:var(--ink)] mb-7">
+          Ik had niet verwacht dat dat al direct zoveel emoties los kon maken.
+        </blockquote>
+
+        <p class="text-[color:var(--text-on-light-muted)] mb-4 max-w-[46ch]">
+          "Het Framework geeft me echt de tool in handen. Want als het vanuit je
+          eigen visie komt, dán raakt het."
+        </p>
+        <p class="text-[color:var(--text-on-light-muted)] mb-8 max-w-[46ch]">
+          "Het was eigenlijk een dagelijks moment uit mijn leven, dat ik toch op
+          een goede manier kon overbrengen. Het heeft mij tot veel inzicht geleid."
+        </p>
+
+        <footer class="flex items-center gap-4 pt-7 border-t border-[color:var(--gray-line)]">
+          <span class="monogram" aria-hidden="true">BK</span>
+          <div>
+            <p class="text-sm font-medium text-[color:var(--ink)]">Brenda Kouwenhoven</p>
+            <p class="text-xs text-[color:var(--text-on-light-muted)]">Pionier in duurzame innovatie</p>
+          </div>
+          <span class="pill pill-gold ml-auto hidden sm:inline-flex">Echte Reactie</span>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────────────────────────────────────────────────────────────
+       Infinite testimonial loop. Cards are cloned by animations.js
+       (testimonialLoop) so the seam is invisible; the clones are aria-hidden
+       so each testimonial is announced once. Pauses on hover and on focus.
+
+       ⚠️ These five are the client's own testimonials, translated to Dutch.
+          The English originals are in CONTENT-TODO.md. They were supplied
+          using "she"; rendered here with hij/zijn per the client's decision.
+       ──────────────────────────────────────────────────────────────────────── -->
+  <div class="tloop" data-reveal="up">
+    <div class="tloop-track" data-tloop>
+        <figure class="tcard">
+          <span class="tcard-quote" aria-hidden="true">&ldquo;</span>
+          <div class="stars mb-5" aria-label="5 van de 5 sterren">★★★★★</div>
+          <blockquote class="tcard-body">Onyema is echt uitzonderlijk goed in wat hij doet. Het is een flinke investering, maar achteraf had ik er zo het dubbele voor betaald. Zo ontzettend waardevol. Niet alleen voor je omzet, maar ook voor meer impact, zelfvertrouwen, vrijheid en veel meer.</blockquote>
+          <figcaption class="tcard-foot">
+            <!-- ⚠️ PLACEHOLDER: drop a real photo of Naomi Beusink in at this path -->
+            <picture><source srcset="assets/images/testimonial-nb.avif" type="image/avif" /><source srcset="assets/images/testimonial-nb.webp" type="image/webp" /><img src="assets/images/testimonial-nb.jpg" class="tcard-photo" 
+                 alt="Portret van Naomi Beusink." loading="lazy" width="52" height="52"
+                 data-placeholder="portrait" /></picture>
+            <div>
+              <p class="tcard-name">Naomi Beusink</p>
+              <p class="tcard-role">Online Ads Specialist</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tcard">
+          <span class="tcard-quote" aria-hidden="true">&ldquo;</span>
+          <div class="stars mb-5" aria-label="5 van de 5 sterren">★★★★★</div>
+          <blockquote class="tcard-body">Ik had al gezien hoe Onyema het event Manifest van Simone Levie regisseerde. Ongelooflijk goed. Toen ik mijn eerste grote event in een theater wilde geven, moest het een echte ervaring worden. In Nederland heb je daar maar één iemand voor nodig. Onyema.</blockquote>
+          <figcaption class="tcard-foot">
+            <!-- ⚠️ PLACEHOLDER: drop a real photo of Lindy Stofbergen in at this path -->
+            <picture><source srcset="assets/images/testimonial-ls.avif" type="image/avif" /><source srcset="assets/images/testimonial-ls.webp" type="image/webp" /><img src="assets/images/testimonial-ls.jpg" class="tcard-photo" 
+                 alt="Portret van Lindy Stofbergen." loading="lazy" width="52" height="52"
+                 data-placeholder="portrait" /></picture>
+            <div>
+              <p class="tcard-name">Lindy Stofbergen</p>
+              <p class="tcard-role">Spreker en Human Design Teacher</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tcard">
+          <span class="tcard-quote" aria-hidden="true">&ldquo;</span>
+          <div class="stars mb-5" aria-label="5 van de 5 sterren">★★★★★</div>
+          <blockquote class="tcard-body">Onyema begrijpt precies hoe je een community bouwt en onvergetelijke ervaringen voor je publiek maakt. Hij daagde me uit om te groeien en gaf me het vertrouwen om op een veel hoger niveau het podium op te stappen.</blockquote>
+          <figcaption class="tcard-foot">
+            <!-- ⚠️ PLACEHOLDER: drop a real photo of Anita Jongman in at this path -->
+            <picture><source srcset="assets/images/testimonial-aj.avif" type="image/avif" /><source srcset="assets/images/testimonial-aj.webp" type="image/webp" /><img src="assets/images/testimonial-aj.jpg" class="tcard-photo" 
+                 alt="Portret van Anita Jongman." loading="lazy" width="52" height="52"
+                 data-placeholder="portrait" /></picture>
+            <div>
+              <p class="tcard-name">Anita Jongman</p>
+              <p class="tcard-role">Expert Voedseltransitie</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tcard">
+          <span class="tcard-quote" aria-hidden="true">&ldquo;</span>
+          <div class="stars mb-5" aria-label="5 van de 5 sterren">★★★★★</div>
+          <blockquote class="tcard-body">Onyemaaaaa. Ik heb zoveel gehad aan jouw coaching. Na mijn talk stond er letterlijk een rij mensen te wachten om mij te spreken en met mij te werken. Heel erg bedankt.</blockquote>
+          <figcaption class="tcard-foot">
+            <!-- ⚠️ PLACEHOLDER: drop a real photo of Kelly Clark in at this path -->
+            <picture><source srcset="assets/images/testimonial-kc.avif" type="image/avif" /><source srcset="assets/images/testimonial-kc.webp" type="image/webp" /><img src="assets/images/testimonial-kc.jpg" class="tcard-photo" 
+                 alt="Portret van Kelly Clark." loading="lazy" width="52" height="52"
+                 data-placeholder="portrait" /></picture>
+            <div>
+              <p class="tcard-name">Kelly Clark</p>
+              <p class="tcard-role">Coach voor Beauty Ondernemers</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tcard">
+          <span class="tcard-quote" aria-hidden="true">&ldquo;</span>
+          <div class="stars mb-5" aria-label="5 van de 5 sterren">★★★★★</div>
+          <blockquote class="tcard-body">Ik ken niemand met zo'n scherp oog voor business en podiumregie als Onyema. Waar ik nu sta, financieel en persoonlijk, had ik een paar jaar geleden nooit durven bedenken. Zijn coaching heeft alles veranderd.</blockquote>
+          <figcaption class="tcard-foot">
+            <!-- ⚠️ PLACEHOLDER: drop a real photo of Yarmill Kromhout in at this path -->
+            <picture><source srcset="assets/images/testimonial-yk.avif" type="image/avif" /><source srcset="assets/images/testimonial-yk.webp" type="image/webp" /><img src="assets/images/testimonial-yk.jpg" class="tcard-photo" 
+                 alt="Portret van Yarmill Kromhout." loading="lazy" width="52" height="52"
+                 data-placeholder="portrait" /></picture>
+            <div>
+              <p class="tcard-name">Yarmill Kromhout</p>
+              <p class="tcard-role">Choreograaf, Motivational Speaker en Ondernemer</p>
+            </div>
+          </figcaption>
+        </figure>
+    </div>
+  </div>
+
+  <!-- Section CTA — outline style, quieter than the offer's filled gold -->
+  <div class="shell mt-14 text-center">
+    <p class="text-sm text-[color:var(--text-on-light-muted)] mb-5" data-reveal="up">
+      Op 8 september zit jij in deze zaal.
+    </p>
+    <a href="#ticket" class="btn btn-outline btn-lg" data-cta="testimonials" data-reveal="up">
+      Ik Wil Ook Op Dat Podium
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     11 · SUCCESS STORIES
+     ⚠️ PLACEHOLDER: illustrative. Replace with verifiable outcomes + consent.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-warm" data-placeholder="case-studies">
+  <div class="shell">
+    <div class="mb-16">
+      <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">Wat Er Daarna Gebeurde</p>
+      <h2 class="display display-md max-w-[17ch]" data-split="lines">Drie Mensen. Eén Dag. En <em>Daarna</em>.</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-4" data-stagger>
+
+      <article class="card card-light card-hover !p-0 overflow-hidden" data-reveal="up">
+        <div class="media media-zoom media-tone ratio-video !rounded-none">
+          <picture><source srcset="assets/images/exp-onyema-speak.avif" type="image/avif" /><source srcset="assets/images/exp-onyema-speak.webp" type="image/webp" /><img src="assets/images/exp-onyema-speak.jpg" alt="Onyema Onwuka spreekt een groep toe tijdens een Turning Point event." loading="lazy" width="1000" height="750" /></picture>
+        </div>
+        <div class="p-7">
+          <p class="eyebrow eyebrow--muted mb-4">Van Bang Naar Boekingen</p>
+          <div class="space-y-3 mb-6">
+            <div class="flex gap-3 items-start">
+              <span class="pill !px-2 !py-1 !text-[0.625rem] flex-none" style="background:rgba(10,10,11,0.06)">Voor</span>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Weigerde elk podium. Dertien jaar lang.</p>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="pill pill-gold !px-2 !py-1 !text-[0.625rem] flex-none">Na</span>
+              <p class="text-sm text-[color:var(--ink)]">Vier betaalde keynotes in het eerste halfjaar.</p>
+            </div>
+          </div>
+          <p class="text-xs text-[color:var(--text-on-light-muted)] pt-5 border-t border-[color:var(--gray-line)]">
+            Marketingstrateeg · Utrecht
+          </p>
+        </div>
+      </article>
+
+      <article class="card card-light card-hover !p-0 overflow-hidden" data-reveal="up" data-reveal-delay="0.05">
+        <div class="media media-zoom media-tone ratio-video !rounded-none">
+          <picture><source srcset="assets/images/exp-room.avif" type="image/avif" /><source srcset="assets/images/exp-room.webp" type="image/webp" /><img src="assets/images/exp-room.jpg" alt="Deelnemers werken samen aan hun verhaal tijdens een sessie." loading="lazy" width="1000" height="750" /></picture>
+        </div>
+        <div class="p-7">
+          <p class="eyebrow eyebrow--muted mb-4">Van Pitch Naar Partner</p>
+          <div class="space-y-3 mb-6">
+            <div class="flex gap-3 items-start">
+              <span class="pill !px-2 !py-1 !text-[0.625rem] flex-none" style="background:rgba(10,10,11,0.06)">Voor</span>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Zeven investeerderspitches. Zeven keer nee.</p>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="pill pill-gold !px-2 !py-1 !text-[0.625rem] flex-none">Na</span>
+              <p class="text-sm text-[color:var(--ink)]">Achtste pitch, ander verhaal. Ja binnen tien dagen.</p>
+            </div>
+          </div>
+          <p class="text-xs text-[color:var(--text-on-light-muted)] pt-5 border-t border-[color:var(--gray-line)]">
+            Oprichter, SaaS · Amsterdam
+          </p>
+        </div>
+      </article>
+
+      <article class="card card-light card-hover !p-0 overflow-hidden" data-reveal="up" data-reveal-delay="0.1">
+        <div class="media media-zoom media-tone ratio-video !rounded-none">
+          <picture><source srcset="assets/images/exp-hall.avif" type="image/avif" /><source srcset="assets/images/exp-hall.webp" type="image/webp" /><img src="assets/images/exp-hall.jpg" alt="Een volle zaal luistert naar een spreker." loading="lazy" width="1400" height="788" /></picture>
+        </div>
+        <div class="p-7">
+          <p class="eyebrow eyebrow--muted mb-4">Van Manager Naar Leider</p>
+          <div class="space-y-3 mb-6">
+            <div class="flex gap-3 items-start">
+              <span class="pill !px-2 !py-1 !text-[0.625rem] flex-none" style="background:rgba(10,10,11,0.06)">Voor</span>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Team luisterde beleefd. En deed daarna niets.</p>
+            </div>
+            <div class="flex gap-3 items-start">
+              <span class="pill pill-gold !px-2 !py-1 !text-[0.625rem] flex-none">Na</span>
+              <p class="text-sm text-[color:var(--ink)]">Reorganisatie uitgelegd in één verhaal. Nul vertrek.</p>
+            </div>
+          </div>
+          <p class="text-xs text-[color:var(--text-on-light-muted)] pt-5 border-t border-[color:var(--gray-line)]">
+            Directeur · Rotterdam
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Image CTA band: after the proof, the ask gets loud -->
+    <div class="cta-band mt-6 p-8 sm:p-12 lg:p-16" data-reveal="up">
+      <picture><source srcset="assets/images/exp-hall.avif" type="image/avif" /><source srcset="assets/images/exp-hall.webp" type="image/webp" /><img src="assets/images/exp-hall.jpg" alt="" aria-hidden="true" loading="lazy" width="1400" height="788" /></picture>
+      <div class="max-w-[34ch]">
+        <p class="eyebrow mb-4">De Volgende Naam Op Dit Rijtje</p>
+        <h3 class="display display-sm text-bone mb-4">Kan De Jouwe Zijn.</h3>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] mb-8">
+          Ze zaten allemaal ooit waar jij nu zit: met een verhaal dat er nog
+          niet uit kwam, en een agenda vol redenen om te wachten.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="#ticket" class="btn btn-gold" data-cta="success">
+            Claim Jouw Plek Voor €125
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#praktisch" class="btn btn-glass" data-cta="success-secondary">Bekijk De Dag</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     12 · AGENDA
+     ⚠️ PLACEHOLDER: confirm the real run-of-show times.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="praktisch" data-placeholder="agenda">
+  <div class="shell">
+    <div class="grid lg:grid-cols-[0.8fr_1fr] gap-14 lg:gap-20">
+
+      <div class="lg:sticky lg:top-28 self-start">
+        <p class="eyebrow mb-6" data-reveal="up">8 September</p>
+        <h2 class="display display-md mb-6" data-split="lines">Het <em>Draaiboek</em> van Je Dag.</h2>
+        <p class="lede mb-8" data-reveal="up" data-reveal-delay="0.1">
+          Van koffie om half tien tot een zaal die om vijf uur op z'n voeten staat.
+        </p>
+        <div class="media media-tone ratio-video mb-8" data-reveal="up">
+          <picture><source srcset="assets/images/exp-circle.avif" type="image/avif" /><source srcset="assets/images/exp-circle.webp" type="image/webp" /><img src="assets/images/exp-circle.jpg" alt="Deelnemers in een kring aan het begin van de dag." loading="lazy" width="1000" height="750" /></picture>
+        </div>
+        <a href="#ticket" class="btn btn-gold" data-cta="agenda">
+          Ik Ben Erbij Voor €125
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="timeline" id="agenda">
+        <div class="timeline-progress" data-timeline-progress></div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">09:30</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Inloop &amp; Eerste Indruk</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Koffie, zaal, licht. Je voelt meteen dat dit geen vergaderruimte is.
+          </p>
+        </div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">10:00</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Iedereen Staat Op</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Binnen dertig minuten heeft iedereen het podium geraakt. Het engste
+            moment ligt dan al achter je.
+          </p>
+        </div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">11:00</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Je Verhaal Opgraven</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Het Storytelling Framework, toegepast op jouw materiaal. Dit is het
+            uur waarin de meeste mensen iets vinden dat ze niet zochten.
+          </p>
+        </div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">13:00</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Lunch &amp; Scherpen</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Eten, en ondertussen je verhaal testen op iemand die je vanochtend
+            nog niet kende.
+          </p>
+        </div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">14:00</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Regie Op Het Podium</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Je staat. Onyema regisseert. Live, voor de groep, met de precisie van
+            iemand die twaalf jaar naast het podium stond.
+          </p>
+        </div>
+
+        <div class="timeline-item pb-11" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">16:00</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">De Finale</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Vol licht. Volle zaal. Jouw verhaal, van begin tot eind. Dit is het
+            moment waar de hele dag naartoe werkt.
+          </p>
+        </div>
+
+        <div class="timeline-item" data-reveal="up" data-timeline-item>
+          <span class="timeline-node"></span>
+          <p class="card-index mb-2 tnum">17:30</p>
+          <h3 class="display !text-[length:var(--step-1)] text-bone mb-2">Borrel En Je Volgende Podium</h3>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)] max-w-[48ch]">
+            Je gaat weg met een af verhaal, een groep die je gezien heeft, en
+            één concrete afspraak met jezelf.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     13 · LOCATION
+     ⚠️ PLACEHOLDER: exact venue + address + map embed.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-light" data-placeholder="venue">
+  <div class="shell">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <div>
+        <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">De Locatie</p>
+        <h2 class="display display-md mb-6" data-split="lines">Een Echte Zaal. Regio <em>Amsterdam</em>.</h2>
+        <p class="text-[color:var(--text-on-light-muted)] mb-9 max-w-[48ch]" data-reveal="up" data-reveal-delay="0.05">
+          Geen hotelzaaltje met koud kunstlicht. Een monumentale zaal met een vloer die je
+          voelt, licht dat je warm maakt en akoestiek die stilte draagt. Het exacte
+          adres krijg je direct na je aanmelding.
+        </p>
+
+        <div class="space-y-1 mb-9">
+          <div class="flex items-start gap-4 py-4 border-t border-[color:var(--gray-line)]" data-reveal="up">
+            <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <p class="text-sm font-medium text-[color:var(--ink)]">Bereikbaarheid</p>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Binnen 20 minuten vanaf Amsterdam Centraal.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 py-4 border-t border-[color:var(--gray-line)]" data-reveal="up" data-reveal-delay="0.05">
+            <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <div>
+              <p class="text-sm font-medium text-[color:var(--ink)]">Parkeren</p>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Gratis parkeren op eigen terrein.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 py-4 border-y border-[color:var(--gray-line)]" data-reveal="up" data-reveal-delay="0.1">
+            <svg class="text-[color:var(--gold-deep)] flex-none mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>
+            <div>
+              <p class="text-sm font-medium text-[color:var(--ink)]">Inbegrepen</p>
+              <p class="text-sm text-[color:var(--text-on-light-muted)]">Koffie, lunch en een borrel na afloop.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="#ticket" class="btn btn-outline" data-cta="locatie">
+          Zet 8 September Vast
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="media media-plain aspect-[4/3] relative" data-reveal="left">
+        <picture><source srcset="assets/images/venue-hall.avif" type="image/avif" /><source srcset="assets/images/venue-hall.webp" type="image/webp" /><img src="assets/images/venue-hall.jpg" alt="De monumentale zaal waarin een MAIN CHARACTER event plaatsvindt." loading="lazy" width="900" height="675" /></picture>
+        <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(10,10,11,0.7), transparent 60%)"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-[2]">
+          <div class="glass rounded-[var(--r-md)] p-5 flex items-center justify-between gap-4">
+            <div>
+              <p class="text-xs text-[color:var(--text-on-dark-muted)] mb-1">8 september 2026 · 09:30 tot 17:30</p>
+              <p class="display !text-[length:var(--step-1)] text-bone">Regio Amsterdam</p>
+            </div>
+            <span class="pill pill-gold flex-none">Adres Na Aanmelding</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     14 · FAQ
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section on-light !pt-0">
+  <div class="shell">
+    <div class="grid lg:grid-cols-[0.7fr_1fr] gap-12 lg:gap-20">
+
+      <div class="lg:sticky lg:top-28 self-start">
+        <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">Twijfels</p>
+        <h2 class="display display-md mb-6" data-split="lines">Wat Je Nu <em>Denkt</em>.</h2>
+        <p class="text-sm text-[color:var(--text-on-light-muted)] mb-6">
+          Staat je vraag er niet bij? Mail ons. Je krijgt binnen één werkdag
+          antwoord van een mens.
+        </p>
+        <a href="mailto:info@maincharactermethod.nl" class="nav-link !text-[color:var(--ink)]" data-placeholder="link">info@maincharactermethod.nl</a>
+      </div>
+
+      <div id="faq">
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-1">
+            Ik ben doodsbang om te spreken. Is dit dan wel iets voor mij?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-1" role="region">
+            <div class="acc-body prose-justify">
+              <p>Dat is precies de reden dat deze dag bestaat. De mensen die het
+              spannendst vinden, maken vrijwel altijd de grootste sprong, omdat
+              er het meeste onder de deur vandaan komt. Je wordt nooit
+              onaangekondigd het podium op geduwd. Elke stap is opgebouwd, en de
+              zaal is die dag jouw kant.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-2">
+            Moet ik al een verhaal hebben?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-2" role="region">
+            <div class="acc-body">
+              <p>Nee. De meeste deelnemers komen binnen met "ik heb eigenlijk
+              niets bijzonders meegemaakt" en gaan naar huis met iets waarvan ze
+              niet wisten dat het een verhaal was. Het opgraven zit in de dag zelf.
+              Dat is niet je huiswerk, dat is het werk.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-3">
+            Waarom €125 als de waarde €643 is?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-3" role="region">
+            <div class="acc-body">
+              <p>Omdat deze dag onze voordeur is. Wie hier een keer heeft gestaan,
+              begrijpt wat we doen, en een deel van die mensen werkt daarna
+              verder met ons. Dat is het hele verdienmodel. Geen kunstmatige
+              korting: een bewuste keuze om de drempel laag te houden.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-4">
+            Ik kan op 8 september niet. Komt er een nieuwe editie?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-4" role="region">
+            <div class="acc-body">
+              <p>Niet meer dit jaar. 25 juni was uitverkocht, 8 september is de
+              laatste editie van 2026. Nieuwe data volgen in het voorjaar, tegen
+              het dan geldende tarief.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-5">
+            Wordt er gefilmd? Ik wil niet online staan.
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-5" role="region">
+            <div class="acc-body">
+              <p data-placeholder="policy">Er wordt gefilmd voor de aftermovie, maar niets van jou wordt
+              gepubliceerd zonder jouw expliciete toestemming. Geef je bij de
+              inloop aan dat je liever buiten beeld blijft, dan gebeurt dat.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-6">
+            Wat als het me niets oplevert?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-6" role="region">
+            <div class="acc-body">
+              <p data-placeholder="guarantee">Blijf tot de lunch. Vind je dan dat deze dag niets voor je doet?
+              Zeg het bij de balie en je krijgt je volledige investering terug,
+              zonder gesprek, zonder formulier.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-open="false">
+          <button class="acc-trigger" aria-expanded="false" aria-controls="faq-7">
+            Is dit voor ondernemers of ook voor mensen in loondienst?
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="faq-7" role="region">
+            <div class="acc-body">
+              <p>Beide. De zaal is meestal half ondernemer, half professional in
+              loondienst. Het mechanisme onder een investeerderspitch en een
+              vergadering met het MT is exact hetzelfde. Er zit alleen een ander logo op
+              de muur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     15 · URGENCY
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="section-tight relative overflow-hidden bg-[color:var(--ink-soft)] border-y border-[color:var(--ink-line)]">
+  <div class="shell">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+
+      <div class="flex items-center gap-5 text-center lg:text-left">
+        <span class="icon-ring !w-12 !h-12" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <div>
+          <p class="display !text-[length:var(--step-1)] text-bone mb-1">
+            <span data-placeholder="seats"><span class="tnum text-gold" data-seats-left>12</span> plekken over</span>
+          </p>
+          <p class="text-sm text-[color:var(--text-on-dark-muted)]">
+            De zaal telt 40 stoelen. Meer passen er fysiek niet in.
+          </p>
+        </div>
+      </div>
+
+      <div class="cd-grid" data-deadline-mirror>
+        <div class="cd-unit glass-dark"><span class="cd-num" data-cd="days">00</span><span class="cd-label">Dagen</span></div>
+        <div class="cd-unit glass-dark"><span class="cd-num" data-cd="hours">00</span><span class="cd-label">Uren</span></div>
+        <div class="cd-unit glass-dark"><span class="cd-num" data-cd="minutes">00</span><span class="cd-label">Min</span></div>
+        <div class="cd-unit glass-dark"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span></div>
+      </div>
+
+      <a href="#ticket" class="btn btn-gold btn-lg flex-none" data-cta="urgency">
+        Claim Jouw Plek
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     16 · FINAL CTA
+     ══════════════════════════════════════════════════════════════════════════ -->
+<section class="relative min-h-[92svh] flex items-center overflow-hidden grain">
+  <div class="absolute inset-0 z-0">
+    <picture><source srcset="assets/images/cta-celebration.avif" type="image/avif" /><source srcset="assets/images/cta-celebration.webp" type="image/webp" /><img src="assets/images/cta-celebration.jpg" alt="" aria-hidden="true" loading="lazy" width="1920" height="1080"
+         class="w-full h-full object-cover" data-parallax="0.14" /></picture>
+    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(10,10,11,0.97) 10%, rgba(10,10,11,0.78) 60%, rgba(10,10,11,0.92))"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(90% 70% at 50% 60%, rgba(201,164,92,0.22), transparent 60%)"></div>
+  </div>
+
+  <div class="orb orb-gold w-[50vw] h-[50vw] left-[25%] top-[15%] opacity-70" data-float="2"></div>
+
+  <div class="shell relative z-10 text-center">
+    <p class="eyebrow mb-8" data-reveal="up">8 September · Amsterdam · 40 Stoelen</p>
+
+    <h2 class="display display-lg max-w-[16ch] mx-auto mb-9" data-split="lines">
+      Over een Jaar Is Dit Het Moment Dat Je <em>Aanwijst</em>.
+    </h2>
+
+    <p class="lede mx-auto mb-11 !text-center" data-reveal="up" data-reveal-delay="0.1">
+      Of het is een dinsdag geweest zoals alle andere. Dat is precies het verschil
+      dat je nu, met één klik, zelf kiest.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-9" data-reveal="up" data-reveal-delay="0.15">
+      <a href="checkout.html" class="btn btn-gold btn-lg" data-cta="final">
+        Claim Jouw Plek Voor €125
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#programma" class="btn btn-ghost btn-lg">Bekijk Het Programma</a>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs text-[color:var(--text-on-dark-muted)]" data-reveal="up" data-reveal-delay="0.2">
+      <span class="flex items-center gap-2">
+        <svg class="text-gold" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        Veilig betalen
+      </span>
+      <span class="flex items-center gap-2">
+        <svg class="text-gold" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <span data-placeholder="guarantee">Geld terug tot de lunch</span>
+      </span>
+      <span class="flex items-center gap-2">
+        <svg class="text-gold" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        Direct toegang tot de video's
+      </span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     17 · FOOTER
+     ══════════════════════════════════════════════════════════════════════════ -->
+<footer class="py-9 bg-ink border-t border-[color:var(--ink-line)]">
+  <div class="shell">
+    <div class="flex flex-col md:flex-row justify-between gap-7 mb-7">
+      <div>
+        <a href="#hero" class="wordmark !text-lg">MAIN CHARACTER</a>
+        <p class="text-sm text-[color:var(--text-on-dark-muted)] mt-3 max-w-[34ch]">
+          Wij maken geen sprekers. Wij halen weg wat er tussen jou en de zaal in staat.
+        </p>
+      </div>
+
+      <nav class="flex flex-wrap gap-x-10 gap-y-3" aria-label="Footer">
+        <a href="#verhaal"   class="nav-link">Het Verhaal</a>
+        <a href="#ervaring"  class="nav-link">De Dag</a>
+        <a href="#onyema"    class="nav-link">Onyema</a>
+        <a href="#verhalen"  class="nav-link">Verhalen</a>
+        <a href="checkout.html" class="nav-link !text-gold">Tickets</a>
+      </nav>
+    </div>
+
+    <hr class="rule mb-5" />
+
+    <div class="flex flex-col md:flex-row justify-between items-center gap-5 text-xs text-[color:var(--text-on-dark-muted)]">
+      <p>© 2026 MAIN CHARACTER B.V. · KvK <span data-placeholder="legal">00000000</span></p>
+      <div class="flex gap-7" data-placeholder="link">
+        <a href="#" class="hover:text-bone transition-colors">Algemene Voorwaarden</a>
+        <a href="#" class="hover:text-bone transition-colors">Privacy</a>
+        <a href="#" class="hover:text-bone transition-colors">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     FLOATING ACTIONS — visible for the whole page
+     The CTA is desktop-only: on mobile the sticky bar below already carries
+     it, and two gold CTAs in one corner is clutter, not urgency. The
+     Instagram dot floats on every size and lifts clear of the bar.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="float-stack">
+  <a href="https://www.instagram.com/onyema_sprekerscoach_regisseur/"
+     class="float-ig" target="_blank" rel="noopener noreferrer"
+     aria-label="Volg MAIN CHARACTER op Instagram (opent in een nieuw tabblad)">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5"/>
+      <circle cx="12" cy="12" r="3.8"/>
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+
+  <a href="#ticket" class="float-cta hidden lg:inline-flex" data-cta="floating">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M3 9a2 2 0 002-2V6h14v1a2 2 0 000 4v1H5v-1a2 2 0 00-2-2z" opacity="0"/>
+      <path d="M4 8V6a1 1 0 011-1h14a1 1 0 011 1v2a2 2 0 000 4v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2a2 2 0 000-4z"/>
+      <path d="M13 5v14" stroke-dasharray="2 2"/>
+    </svg>
+    Claim Jouw Plek
+  </a>
+</div>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-cta lg:hidden" id="stickyCta">
+  <div class="flex items-center gap-3">
+    <div class="flex-1 min-w-0">
+      <p class="text-sm text-bone font-medium leading-tight">8 sep · Amsterdam</p>
+      <p class="text-xs text-[color:var(--text-on-dark-muted)] truncate">
+        <span class="text-gold tnum" data-seats-left>12</span> plekken over · €125
+      </p>
+    </div>
+    <a href="checkout.html" class="btn btn-gold flex-none !py-3 !px-6 !text-sm" data-cta="sticky">Claim Plek</a>
+  </div>
+</div>
+
+<!-- Video lightbox -->
+<dialog id="videoModal" class="bg-transparent p-0 backdrop:bg-black/85 backdrop:backdrop-blur-sm max-w-[min(460px,92vw)] w-full">
+  <div class="relative">
+    <button class="absolute -top-11 right-0 text-bone/70 hover:text-bone transition-colors" data-modal-close aria-label="Sluiten">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <!-- loop: the testimonial restarts instead of freezing on a black last
+         frame. Sound stays ON and controls stay visible: this only ever
+         opens on a deliberate click, a muted testimonial is pointless, and
+         at 1:30 the viewer needs to be able to pause. -->
+    <video id="modalVideo" class="w-full rounded-[var(--r-lg)] bg-ink"
+           controls loop playsinline webkit-playsinline preload="none"></video>
+  </div>
+</dialog>
+<script src="assets/js/app.min.js" defer></script>
+</body>
+</html>

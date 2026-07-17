@@ -1,0 +1,2007 @@
+/* ==========================================================================
+   MAIN CHARACTER — Design System
+   "Ontketen de kracht van jouw verhaal" · 8 september · Amsterdam
+   --------------------------------------------------------------------------
+   This file holds the bespoke layer: design tokens, editorial typography,
+   glass/gradient primitives and component classes. Tailwind handles layout,
+   spacing and responsive utilities (config lives inline in each HTML file).
+
+   Token naming is intentionally 1:1 with Elementor's Global Styles panel so
+   the WordPress build can map tokens directly. See README.md → "Elementor map".
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TOKENS
+   -------------------------------------------------------------------------- */
+:root {
+  /* Core neutrals — the page is 90% these */
+  --ink:          #0A0A0B;  /* near-black, primary surface   */
+  --ink-soft:     #131316;  /* raised dark surface           */
+  --ink-line:     #26262B;  /* hairline on dark              */
+  --bone:         #F7F5F2;  /* off-white, primary light bg   */
+  --bone-warm:    #EFEAE3;  /* warm beige section bg         */
+  --beige:        #DFD5C7;  /* warm beige accent             */
+  --gray-soft:    #8A8A8F;  /* muted body text on dark       */
+  --gray-line:    #E2DDD5;  /* hairline on light             */
+  --danger:       #C0492F;  /* validation errors only        */
+  --field-bg:     #FFFFFF;  /* input surface. The floating-label notch paints
+                               this colour over the border, so the chip and the
+                               input must always share one value. */
+
+  /* Gold — used sparingly. Accent only, never a fill. */
+  --gold:         #C9A45C;
+  --gold-light:   #E4CE9A;
+  --gold-deep:    #9A7B3F;
+
+  /* Semantic */
+  --text-on-dark:        #F7F5F2;
+  --text-on-dark-muted:  #9A9AA1;
+  --text-on-light:       #0A0A0B;
+  --text-on-light-muted: #5F5F66;
+
+  /* Type scale — fluid, clamped. Editorial ratio ~1.28 */
+  --step--1: clamp(0.82rem, 0.79rem + 0.15vw, 0.9rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1:  clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
+  --step-2:  clamp(1.6rem, 1.42rem + 0.9vw, 2.1rem);
+  --step-3:  clamp(2rem, 1.68rem + 1.6vw, 3rem);
+  --step-4:  clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
+  --step-5:  clamp(3rem, 1.9rem + 5.5vw, 7rem);
+  --step-6:  clamp(3.5rem, 1.6rem + 9.5vw, 10rem);
+
+  /* Motion — one easing family across the whole site */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   0.25s;
+  --dur-base:   0.6s;
+  --dur-slow:   1.1s;
+
+  /* Elevation — soft, warm, never gray-blue */
+  --shadow-sm: 0 1px 2px rgba(10, 10, 11, 0.04), 0 2px 8px rgba(10, 10, 11, 0.04);
+  --shadow-md: 0 2px 4px rgba(10, 10, 11, 0.03), 0 12px 32px rgba(10, 10, 11, 0.08);
+  --shadow-lg: 0 4px 8px rgba(10, 10, 11, 0.04), 0 24px 64px rgba(10, 10, 11, 0.12);
+  --shadow-gold: 0 8px 32px rgba(201, 164, 92, 0.24);
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+
+  /* Layout */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --maxw: 1240px;
+  --maxw-wide: 1560px;
+  --maxw-prose: 62ch;
+
+  /* Numerals — counters and the countdown.
+     Deliberately NOT the display serif: Fraunces' numerals carry a lot of
+     stroke contrast, and at counter sizes they read as decoration rather than
+     data. Inter at 200 with tight tracking and tabular figures reads as clean,
+     modern and expensive, and the digits don't jitter as they animate. */
+  --font-num: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto; /* Lenis owns scrolling; native smooth would fight it */
+}
+
+body {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Horizontal overflow containment.
+   [data-reveal="left"|"right"] start life at translateX(±32px), so any
+   full-width element carrying one hangs ~32px past the viewport until its
+   tween lands — enough to make the whole page pan sideways on mobile.
+
+   This must be `clip`, not `hidden`: several sections use `lg:sticky` columns,
+   and `overflow: hidden` on an ancestor creates a scroll container that kills
+   position:sticky. `clip` contains the overflow without that side effect.
+
+   It also must sit here rather than on <body>: overflow on <body> propagates
+   to the viewport (leaving body itself `visible`), and Chrome does not honour
+   a propagated `clip` — verified, it still panned 12px. */
+main,
+footer {
+  overflow-x: clip;
+}
+
+/* Lenis needs this to avoid double scrollbars */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+/* The build wraps every <img> in <picture> for AVIF/WebP. `display: contents`
+   makes the wrapper vanish from layout, so every existing rule that targets
+   `.media img` — or treats the image as a direct flex/grid child — keeps
+   working exactly as it did before the wrapper existed. Without this, each
+   <picture> becomes an inline box and the media tiles collapse. */
+picture { display: contents; }
+
+/* --------------------------------------------------------------------------
+   3. EDITORIAL TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+.font-display {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+}
+
+.display {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+  text-wrap: balance;
+}
+
+.display-xl { font-size: var(--step-6); }
+.display-lg { font-size: var(--step-5); }
+.display-md { font-size: var(--step-4); }
+.display-sm { font-size: var(--step-3); }
+
+/* MEASURE — read this before adding a headline.
+   Cap the line length with `max-w-[Nch]` ON THE HEADING, never on a wrapper
+   div. `ch` resolves against the element's own font-size: on a 16px wrapper
+   1ch ≈ 8px, so max-w-[26ch] is ~208px — and a 72px headline inside it wraps
+   into a 4-line ragged column. On the heading itself 1ch ≈ 36px and the number
+   means what it looks like. Rule of thumb here: ~half the character count of
+   the headline gives two lines. */
+
+/* Italic accent — the single "editorial" flourish. Used on one word per headline. */
+.display em,
+.display .accent {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+}
+
+/* Eyebrow / kicker.
+   Title Case, never uppercase — set in the copy, not forced by CSS, so the
+   Dutch capitalisation stays under the writer's control. */
+.eyebrow {
+  font-family: "EB Garamond", ui-serif, Georgia, serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  line-height: 1;
+}
+.eyebrow--muted { color: var(--gold-deep); }
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--text-on-dark-muted);
+  max-width: var(--maxw-prose);
+  text-wrap: pretty;
+}
+.on-light .lede { color: var(--text-on-light-muted); }
+
+/* Justified prose.
+   Applied only to multi-line blocks at 48ch or wider — justify in a narrow
+   column opens rivers of white and reads as a fault, not as typesetting.
+   `hyphens: auto` is what makes it work: the page is lang="nl", so the browser
+   hyphenates Dutch and keeps word spacing even. Never put this on captions,
+   pills, or single lines. */
+.prose-justify > p,
+p.prose-justify {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 7 4 3; /* don't hyphenate short words or leave stubs */
+}
+/* Below ~40ch even hyphenation can't save justify — fall back to ragged. */
+@media (max-width: 640px) {
+  .prose-justify > p,
+  p.prose-justify { text-align: left; }
+}
+
+/* Numerals that line up in tables, counters, prices */
+.tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* EVERY animated counter, wherever it lives.
+   Bound to the attribute rather than to .stat-num on purpose: two counters in
+   the Onyema section are <span data-count> inside a <p class="display">, so
+   they inherited Fraunces and quietly stayed decorative while the rest of the
+   page moved to Inter. Attaching the rule to [data-count] means any counter
+   added later is correct by default, whatever it's nested in. */
+[data-count] {
+  font-family: var(--font-num);
+  font-weight: 200;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.04em;
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------
+   4. LAYOUT
+   -------------------------------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.shell-wide { max-width: 1600px; }
+
+/* Vertical rhythm. Pulled in from clamp(5rem, 12vh, 10rem): at 10rem the page
+   read as empty rather than luxurious, and every extra viewport of scroll on
+   paid traffic is a chance to leave. Still generous — just not cavernous. */
+.section {
+  padding-block: clamp(3.75rem, 8vh, 6.5rem);
+  position: relative;
+}
+.section-tight { padding-block: clamp(2.5rem, 5vh, 4rem); }
+.section-compact { padding-block: clamp(3rem, 6vh, 4.5rem); }
+
+/* --------------------------------------------------------------------------
+   4b. SECTION SEAM
+   The hero and the proof band are both dark, so the join read as one endless
+   surface. This is the transition: a hairline that carries a single gold
+   filament at its centre, over a soft lift in the background. Subtle on
+   purpose — it should register as craft, not as a rule across the page.
+   -------------------------------------------------------------------------- */
+.seam {
+  position: relative;
+  height: 0;
+  z-index: 5;
+}
+.seam::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 164, 92, 0.06) 22%,
+    rgba(201, 164, 92, 0.55) 50%,
+    rgba(201, 164, 92, 0.06) 78%,
+    transparent
+  );
+}
+/* The glow that sits under the filament and lifts the next section off the
+   one above it. */
+.seam::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: min(760px, 86vw);
+  height: 190px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(
+    50% 100% at 50% 0%,
+    rgba(201, 164, 92, 0.11),
+    transparent 72%
+  );
+}
+
+.on-light {
+  background: var(--bone);
+  color: var(--text-on-light);
+}
+.on-warm {
+  background: var(--bone-warm);
+  color: var(--text-on-light);
+}
+
+/* Hairline dividers that read as "designed", not as borders */
+.rule {
+  height: 1px;
+  background: var(--ink-line);
+  border: 0;
+}
+.on-light .rule { background: var(--gray-line); }
+
+/* --------------------------------------------------------------------------
+   5. SURFACES — glass, gradient, grain
+   -------------------------------------------------------------------------- */
+
+/* Glassmorphism. Only used over photography/video — never over flat color,
+   where it just reads as muddy gray. */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.glass-dark {
+  background: rgba(10, 10, 11, 0.55);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Soft brand gradient wash */
+.gradient-warm {
+  background:
+    radial-gradient(70% 90% at 15% 10%, rgba(201, 164, 92, 0.14), transparent 60%),
+    radial-gradient(60% 80% at 90% 90%, rgba(223, 213, 199, 0.1), transparent 60%),
+    var(--ink);
+}
+
+/* Film grain — the single cheapest thing that makes flat gradients look
+   photographic instead of like a CSS demo. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Floating gradient orbs behind the hero */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-gold  { background: radial-gradient(circle, rgba(201,164,92,0.5), transparent 70%); }
+.orb-beige { background: radial-gradient(circle, rgba(223,213,199,0.32), transparent 70%); }
+
+/* Top/bottom fades so photography melts into the section instead of cutting */
+.fade-b::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40%;
+  background: linear-gradient(to top, var(--ink), transparent);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--bone);
+  --btn-fg: var(--ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding: 1.05em 2.1em;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  /* A wrapped button reads as a broken button. It also collided with the
+     wordmark in the mobile nav. */
+  white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn:active { transform: translateY(0); transition-duration: 0.08s; }
+
+/* Sheen sweep on hover — the "expensive" tell */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.45) 50%, transparent 80%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-out);
+}
+.btn:hover::before { transform: translateX(120%); }
+
+.btn-gold {
+  --btn-bg: linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-deep));
+  --btn-fg: #1A1408;
+  font-weight: 600;
+}
+.btn-gold:hover { box-shadow: var(--shadow-gold); }
+
+.btn-ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+}
+.btn-ghost::before { display: none; }
+
+.on-light .btn-ghost {
+  --btn-fg: var(--ink);
+  border-color: rgba(10, 10, 11, 0.16);
+}
+.on-light .btn-ghost:hover { border-color: rgba(10,10,11,0.4); background: rgba(10,10,11,0.03); }
+
+.btn-dark { --btn-bg: var(--ink); --btn-fg: var(--bone); }
+.btn-lg { padding: 1.25em 2.6em; font-size: 1rem; }
+.btn-block { display: flex; width: 100%; }
+
+/* ---- Glass. Over photography or video only — over flat colour it has
+   nothing to refract and just reads as muddy grey. ---------------------- */
+.btn-glass {
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-fg: var(--bone);
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+}
+.btn-glass:hover {
+  --btn-bg: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- Gold outline. Quieter than .btn-gold: for sections that need an
+   invitation rather than a demand. ------------------------------------- */
+.btn-outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--gold);
+  border-color: rgba(201, 164, 92, 0.5);
+}
+.btn-outline:hover {
+  --btn-bg: rgba(201, 164, 92, 0.1);
+  --btn-fg: var(--gold-light);
+  border-color: var(--gold);
+  box-shadow: none;
+}
+.btn-outline::before { display: none; }
+.on-light .btn-outline { --btn-fg: var(--gold-deep); }
+.on-light .btn-outline:hover { --btn-fg: var(--gold-deep); }
+
+/* ---- Text CTA. The lightest weight in the ladder — an arrow that slides. */
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.25em 0;
+  border-bottom: 1px solid rgba(201, 164, 92, 0.35);
+  transition: border-color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+}
+.btn-text:hover { border-bottom-color: var(--gold); gap: 0.95em; }
+.on-light .btn-text { color: var(--gold-deep); border-bottom-color: rgba(154, 123, 63, 0.35); }
+.on-light .btn-text:hover { border-bottom-color: var(--gold-deep); }
+
+/* --------------------------------------------------------------------------
+   6b. CTA SECTIONS
+   -------------------------------------------------------------------------- */
+
+/* Split CTA — half statement, half action. */
+.cta-split {
+  display: grid;
+  gap: 1px;
+  background: var(--ink-line);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+@media (min-width: 768px) { .cta-split { grid-template-columns: 1.2fr 1fr; } }
+.cta-split > * {
+  background: var(--ink-soft);
+  padding: clamp(1.75rem, 4vw, 3rem);
+}
+.cta-split-action {
+  background: linear-gradient(150deg, rgba(201,164,92,0.16), rgba(19,19,22,1) 75%) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.on-light .cta-split { background: var(--gray-line); border-color: var(--gray-line); }
+.on-light .cta-split > * { background: #FFF; }
+.on-light .cta-split-action {
+  background: linear-gradient(150deg, rgba(201,164,92,0.14), #FFF 75%) !important;
+}
+
+/* Full-bleed image CTA banner. */
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  isolation: isolate;
+}
+.cta-band > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  transition: transform 1.4s var(--ease-out);
+}
+.cta-band:hover > img { transform: scale(1.04); }
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(100deg, rgba(10,10,11,0.94) 30%, rgba(10,10,11,0.55)),
+    radial-gradient(80% 120% at 90% 50%, rgba(201,164,92,0.28), transparent 60%);
+}
+
+/* --------------------------------------------------------------------------
+   6c. FLOATING ACTIONS
+   Persistent CTA + Instagram. Bottom-right on desktop; on mobile the CTA
+   defers to the sticky bar (two competing CTAs in one corner is clutter) and
+   only the Instagram dot floats, lifted clear of the bar.
+   -------------------------------------------------------------------------- */
+.float-stack {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  pointer-events: none; /* only the children take clicks */
+}
+.float-stack > * { pointer-events: auto; }
+
+/* Clear the mobile sticky bar so they never stack on top of each other.
+   Scoped with :has() — the checkout has no sticky bar, and lifting the dot
+   there would leave it hovering in dead space. */
+@media (max-width: 1023px) {
+  body:has(.sticky-cta) .float-stack {
+    bottom: calc(5.25rem + env(safe-area-inset-bottom));
+  }
+}
+
+.float-cta {
+  position: relative; /* anchors the pulsing ring in ::after */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65em;
+  padding: 1em 1.6em;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-deep));
+  color: #1A1408;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 40px -6px rgba(201, 164, 92, 0.5), 0 2px 8px rgba(0,0,0,0.3);
+  transform: translateY(0);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  /* A slow breath: enough to catch the eye in peripheral vision, far too slow
+     to nag. Sits on a wrapper-free element so hover can cancel it cleanly. */
+  animation: floatBreath 4.5s var(--ease-inout) infinite;
+}
+.float-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 50px -6px rgba(201, 164, 92, 0.65);
+  animation-play-state: paused;
+}
+@keyframes floatBreath {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+/* The gold ring that pulses out of the CTA once it settles. */
+.float-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  animation: floatRing 4.5s var(--ease-out) infinite;
+  pointer-events: none;
+}
+@keyframes floatRing {
+  0%   { transform: scale(1); opacity: 0.55; }
+  55%  { transform: scale(1.18); opacity: 0; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+
+.float-ig {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 10, 11, 0.72);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--bone);
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+}
+.float-ig:hover {
+  transform: translateY(-3px) rotate(-6deg);
+  border-color: rgba(201, 164, 92, 0.7);
+  color: var(--gold);
+}
+.on-light .float-ig { color: var(--bone); }
+
+@media (prefers-reduced-motion: reduce) {
+  .float-cta, .float-cta::after { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   7. PILLS / BADGES
+   -------------------------------------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.5em 1em;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.pill-glass {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--bone);
+}
+.pill-gold {
+  background: rgba(201, 164, 92, 0.14);
+  border: 1px solid rgba(201, 164, 92, 0.34);
+  color: var(--gold-light);
+}
+.pill-solid { background: var(--ink); color: var(--bone); }
+
+/* Live pulse dot */
+.dot-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  position: relative;
+  flex: none;
+}
+.dot-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s var(--ease-out) infinite;
+}
+@keyframes pulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   8. CARDS
+   -------------------------------------------------------------------------- */
+.card {
+  position: relative;
+  border-radius: var(--r-lg);
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-line);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.on-light .card,
+.card-light {
+  background: #FFFFFF;
+  border-color: var(--gray-line);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 164, 92, 0.4);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Cursor-tracked gold glow. --mx/--my are set by main.js. */
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(201, 164, 92, 0.13),
+    transparent 70%
+  );
+}
+.card-glow:hover::before { opacity: 1; }
+
+/* Numbered index for card grids */
+.card-index {
+  font-family: "Fraunces", serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   9. MEDIA
+   -------------------------------------------------------------------------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--ink-soft), #1E1E24);
+}
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out), filter 1.2s var(--ease-out);
+}
+.media-zoom:hover img { transform: scale(1.06); }
+
+/* Duotone-ish treatment so mixed stock photography reads as one art direction */
+.media-tone img {
+  filter: saturate(0.72) contrast(1.06) brightness(0.92);
+}
+.media-tone:hover img { filter: saturate(0.95) contrast(1.03) brightness(1); }
+
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(10,10,11,0.65), transparent 55%);
+}
+.media-plain::after { display: none; }
+
+.ratio-video   { aspect-ratio: 16 / 9; }
+.ratio-portrait{ aspect-ratio: 3 / 4; }
+.ratio-square  { aspect-ratio: 1 / 1; }
+.ratio-tall    { aspect-ratio: 2 / 3; }
+
+/* Play affordance on video tiles */
+.play-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+.play-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.24); }
+.play-btn svg { margin-left: 3px; }
+
+/* --------------------------------------------------------------------------
+   10. ANIMATION PRIMITIVES
+   Elements start hidden here (not in JS) so there is no flash before GSAP
+   boots. `.is-ready` is added to <html> once animations are wired; if JS
+   fails entirely, the fallback rule below reveals everything.
+   -------------------------------------------------------------------------- */
+[data-reveal] { opacity: 0; }
+[data-reveal="up"]    { transform: translateY(28px); }
+[data-reveal="down"]  { transform: translateY(-28px); }
+[data-reveal="left"]  { transform: translateX(32px); }
+[data-reveal="right"] { transform: translateX(-32px); }
+[data-reveal="scale"] { transform: scale(0.94); }
+
+/* Fail-safe: no JS → no hidden content. */
+html:not(.is-ready) [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Split-text lines.
+   The padding/margin pair gives descenders and italic overhang room to live
+   inside the mask — without it, Fraunces' italic `g` and `j` get sheared. */
+.line-mask {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  padding-right: 0.06em;
+  margin-right: -0.06em;
+}
+.line-inner { display: block; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .orb { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   11. NAV
+   -------------------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 90;
+  transition: transform var(--dur-base) var(--ease-out),
+              background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              backdrop-filter var(--dur-base) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+.nav--scrolled {
+  background: rgba(10, 10, 11, 0.72);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom-color: var(--ink-line);
+}
+.nav--hidden { transform: translateY(-100%); }
+
+.nav-link {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-on-dark-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav-link:hover { color: var(--bone); }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* Scrollspy active state — set by main.js as sections pass the nav. */
+.nav-link.is-active { color: var(--bone); }
+.nav-link.is-active::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---- Mobile menu ------------------------------------------------------- */
+.burger {
+  width: 42px; height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  flex: none;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.burger:hover { border-color: rgba(255,255,255,0.4); }
+.burger-box { width: 17px; height: 11px; position: relative; }
+.burger-box i {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--bone);
+  border-radius: 2px;
+  transition: transform 0.4s var(--ease-out), opacity 0.25s var(--ease-out);
+}
+.burger-box i:nth-child(1) { top: 0; }
+.burger-box i:nth-child(2) { top: 50%; margin-top: -0.75px; }
+.burger-box i:nth-child(3) { bottom: 0; }
+
+/* Burger morphs into an X */
+[data-menu-open="true"] .burger-box i:nth-child(1) { transform: translateY(4.75px) rotate(45deg); }
+[data-menu-open="true"] .burger-box i:nth-child(2) { opacity: 0; transform: scaleX(0.4); }
+[data-menu-open="true"] .burger-box i:nth-child(3) { transform: translateY(-4.75px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  background: rgba(10, 10, 11, 0.97);
+  backdrop-filter: blur(28px) saturate(1.3);
+  -webkit-backdrop-filter: blur(28px) saturate(1.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem var(--gutter) 2rem;
+  /* clip-path costs nothing to animate and reads far more expensive than a
+     slide — the panel appears to unfurl from the nav bar. */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.7s var(--ease-out), visibility 0.7s;
+  visibility: hidden;
+  overflow-y: auto;
+}
+.mobile-menu.is-open {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+  text-decoration: none;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.mobile-menu.is-open .mobile-menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger, driven purely by CSS so it survives a GSAP failure. */
+.mobile-menu.is-open .mobile-menu-link:nth-child(1) { transition-delay: 0.12s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(2) { transition-delay: 0.18s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(3) { transition-delay: 0.24s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(4) { transition-delay: 0.30s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(5) { transition-delay: 0.36s; }
+.mobile-menu.is-open .mobile-menu-link:nth-child(6) { transition-delay: 0.42s; }
+.mobile-menu-link:hover,
+.mobile-menu-link.is-active { color: var(--gold); }
+.mobile-menu-link .idx {
+  font-family: "Inter", sans-serif;
+  font-size: 0.6875rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.mobile-menu-foot {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-out) 0.48s, transform 0.5s var(--ease-out) 0.48s;
+}
+.mobile-menu.is-open .mobile-menu-foot { opacity: 1; transform: translateY(0); }
+
+/* Body scroll lock while the menu is open */
+body.menu-locked { overflow: hidden; }
+
+/* Wordmark — EB Garamond, matching the brand's own "MAIN CHARACTER METHOD"
+   watermark. Always white: no gold split, no colour change on light sections,
+   no inversion. `!important` on the colour because .on-light flips text colour
+   for everything inside it, and the logo is the one thing that must not follow.
+   The letters are typed in caps in the markup rather than transformed, so the
+   accessible name a screen reader announces is the real wordmark. */
+.wordmark {
+  font-family: "EB Garamond", ui-serif, Georgia, serif;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  letter-spacing: 0.28em;
+  color: #FFFFFF !important;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  /* The tracking adds a trailing gap on the last letter; pull it back so the
+     mark optically aligns to the grid. */
+  margin-right: -0.28em;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.wordmark:hover { opacity: 0.72; }
+
+/* On light surfaces a white wordmark needs a shadow to survive. */
+.on-light .wordmark,
+.wordmark--onlight {
+  text-shadow: 0 1px 12px rgba(10, 10, 11, 0.5), 0 0 1px rgba(10, 10, 11, 0.4);
+}
+
+@media (max-width: 460px) {
+  .nav .wordmark {
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+  }
+}
+/* 360px still has to fit wordmark + CTA + burger. */
+@media (max-width: 380px) {
+  .nav .wordmark {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. ACCORDION (FAQ)
+   -------------------------------------------------------------------------- */
+.acc-item { border-bottom: 1px solid var(--gray-line); }
+.acc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.15rem 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: "Fraunces", serif;
+  font-size: var(--step-1);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.acc-trigger:hover { color: var(--gold-deep); }
+
+.acc-icon {
+  flex: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-line);
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: transform var(--dur-base) var(--ease-out),
+              background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.acc-icon::before,
+.acc-icon::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+.acc-icon::before { width: 12px; height: 1.5px; }
+.acc-icon::after  { width: 1.5px; height: 12px; }
+
+.acc-item[data-open="true"] .acc-icon {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bone);
+  transform: rotate(90deg);
+}
+.acc-item[data-open="true"] .acc-icon::after { transform: scaleY(0); opacity: 0; }
+
+.acc-panel { overflow: hidden; height: 0; }
+.acc-body {
+  padding-bottom: 1.35rem;
+  color: var(--text-on-light-muted);
+  max-width: var(--maxw-prose);
+  font-size: 0.9375rem;
+}
+
+/* --------------------------------------------------------------------------
+   13. MARQUEE (trust bar)
+   -------------------------------------------------------------------------- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  gap: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  padding-right: clamp(2.5rem, 6vw, 5rem);
+  flex: none;
+  min-width: 100%;
+  animation: marquee 42s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Title Case in the markup — no uppercase transform. */
+.logo-mark {
+  font-family: "EB Garamond", ui-serif, Georgia, serif;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--text-on-dark-muted);
+  white-space: nowrap;
+  opacity: 0.65;
+  transition: opacity var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.logo-mark:hover { opacity: 1; color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   14. TIMELINE (agenda + curriculum)
+   -------------------------------------------------------------------------- */
+.timeline { position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--gray-line);
+}
+.timeline-progress {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--gold), var(--gold-deep));
+  transform-origin: top;
+}
+.timeline-item { position: relative; padding-left: clamp(2rem, 5vw, 3.5rem); }
+.timeline-node {
+  position: absolute;
+  left: 0; top: 0.55em;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--bone);
+  border: 1px solid var(--gray-line);
+  transform: translateX(-50%);
+  transition: background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out);
+}
+.timeline-item.is-active .timeline-node {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: translateX(-50%) scale(1.35);
+}
+
+/* --------------------------------------------------------------------------
+   15. TESTIMONIAL CAROUSEL
+   -------------------------------------------------------------------------- */
+.carousel {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 1rem;
+  /* bleed to the viewport edge so cards run off-canvas — editorial feel */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel > * {
+  scroll-snap-align: start;
+  flex: 0 0 clamp(280px, 78vw, 400px);
+}
+
+.quote-mark {
+  font-family: "Fraunces", serif;
+  font-size: 4rem;
+  line-height: 0.7;
+  color: var(--gold);
+  opacity: 0.28;
+  user-select: none;
+}
+
+.stars { display: inline-flex; gap: 2px; color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   16. BEFORE / AFTER
+   -------------------------------------------------------------------------- */
+.ba-col {
+  border-radius: var(--r-lg);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  height: 100%;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.ba-before {
+  background: linear-gradient(160deg, #17171B, #0E0E11);
+  border: 1px solid var(--ink-line);
+  color: var(--text-on-dark-muted);
+}
+.ba-after {
+  background: linear-gradient(160deg, rgba(201,164,92,0.14), rgba(10,10,11,0.6));
+  border: 1px solid rgba(201, 164, 92, 0.32);
+  color: var(--bone);
+  box-shadow: var(--shadow-gold);
+}
+.ba-row {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding-block: 0.85rem;
+}
+.ba-row + .ba-row { border-top: 1px solid rgba(255,255,255,0.06); }
+.ba-icon { flex: none; margin-top: 0.2em; }
+
+/* --------------------------------------------------------------------------
+   17. COUNTDOWN
+   Each digit lives in a fixed-height window and rolls vertically when it
+   changes. The roll is per-digit, so only the digit that actually changed
+   moves — a whole-number flip on every tick reads as a broken clock.
+   -------------------------------------------------------------------------- */
+.cd-grid { display: flex; gap: clamp(0.5rem, 1.5vw, 1rem); }
+.cd-unit {
+  min-width: clamp(58px, 9vw, 84px);
+  padding: 0.85rem 0.5rem;
+  border-radius: var(--r-md);
+  text-align: center;
+}
+/* Same numeric treatment as .stat-num — every number on the site is one
+   family, so the countdown and the counters read as the same system. */
+.cd-num {
+  font-family: var(--font-num);
+  font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.03em;
+  display: flex;
+  justify-content: center;
+  gap: 0.02em;
+}
+
+/* One digit slot */
+.cd-digit {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 1em;
+  width: 0.62em;
+}
+.cd-digit b {
+  display: block;
+  font-weight: inherit;
+  height: 1em;
+  line-height: 1em;
+  will-change: transform;
+}
+/* Outgoing digit rides up and out; incoming rides in from below. */
+.cd-digit .out {
+  position: absolute;
+  inset: 0;
+  animation: digitOut 0.5s var(--ease-out) forwards;
+}
+.cd-digit .in {
+  animation: digitIn 0.5s var(--ease-out) forwards;
+}
+@keyframes digitOut {
+  from { transform: translateY(0);     opacity: 1; }
+  to   { transform: translateY(-100%); opacity: 0; }
+}
+@keyframes digitIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cd-digit .out { display: none; }
+  .cd-digit .in  { animation: none; }
+}
+
+.cd-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  margin-top: 0.55rem;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   18. SEAT METER
+   -------------------------------------------------------------------------- */
+.meter {
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+.on-light .meter { background: rgba(10,10,11,0.08); }
+.meter-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-light));
+}
+
+/* --------------------------------------------------------------------------
+   19. STICKY MOBILE CTA
+   -------------------------------------------------------------------------- */
+.sticky-cta {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 80;
+  padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+  background: rgba(10, 10, 11, 0.82);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-top: 1px solid var(--ink-line);
+  transform: translateY(110%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+
+/* --------------------------------------------------------------------------
+   20. FORMS (checkout)
+   -------------------------------------------------------------------------- */
+.field { position: relative; }
+.input {
+  width: 100%;
+  padding: 1.1rem 1rem 1.1rem;
+  border-radius: var(--r-md);
+  border: 1px solid var(--gray-line);
+  background: var(--field-bg);
+  color: var(--ink);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.2;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+  appearance: none;
+}
+.input::placeholder { color: transparent; }
+.input:hover { border-color: #C9C2B6; }
+.input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 164, 92, 0.16);
+}
+
+/* Chrome paints autofilled inputs with its own pale-blue background, using a
+   UA rule our `background: #FFF` can't beat. The floating label notches into
+   the border with a white chip behind it — so on an autofilled field the chip
+   showed as a white gash across a blue input. The inset shadow is the only
+   way to repaint an autofilled background; the 9999s transition stops Chrome
+   re-applying its colour on focus. */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--field-bg) inset;
+  box-shadow: 0 0 0 1000px var(--field-bg) inset;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: var(--ink);
+}
+
+/* Floating label.
+   The notch works by painting a chip of the FIELD's own background over the
+   border. --field-bg keeps the chip and the input in lockstep; hard-coding
+   #FFF here breaks the moment a field sits on a non-white surface. */
+.label-float {
+  position: absolute;
+  left: 1rem;
+  top: 1.1rem;
+  font-size: 1rem;
+  color: var(--text-on-light-muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+  background: var(--field-bg);
+  padding-inline: 0.25rem;
+  margin-left: -0.25rem;
+}
+.input:focus + .label-float,
+.input:not(:placeholder-shown) + .label-float,
+.input:-webkit-autofill + .label-float {
+  transform: translateY(-1.75rem) scale(0.75);
+  color: var(--gold-deep);
+}
+
+.input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(192, 73, 47, 0.12);
+}
+/* The label rode along in gold while the border went red — the field read as
+   half-valid. It follows the error now. */
+.input[aria-invalid="true"] + .label-float { color: var(--danger); }
+.field-error {
+  display: none;
+  font-size: 0.8125rem;
+  color: var(--danger);
+  margin-top: 0.4rem;
+}
+.input[aria-invalid="true"] ~ .field-error { display: block; }
+
+/* Radio cards (payment method) */
+.radio-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--gray-line);
+  border-radius: var(--r-md);
+  background: var(--field-bg);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+.radio-card:hover { border-color: #C9C2B6; }
+.radio-card:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(201, 164, 92, 0.05);
+  box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.12);
+}
+.radio-card input { accent-color: var(--gold-deep); width: 18px; height: 18px; flex: none; }
+
+/* Order bump — deliberately the one "loud" element on the page */
+.bump {
+  border: 1.5px dashed rgba(201, 164, 92, 0.55);
+  border-radius: var(--r-md);
+  background: rgba(201, 164, 92, 0.06);
+  padding: 1.15rem;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.bump:has(input:checked) {
+  background: rgba(201, 164, 92, 0.13);
+  border-style: solid;
+  border-color: var(--gold);
+}
+
+/* Progress steps */
+.steps { display: flex; align-items: center; gap: 0.5rem; }
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-on-light-muted);
+  white-space: nowrap;
+}
+.step-dot {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gray-line);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  flex: none;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.step[data-state="done"] .step-dot { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.step[data-state="done"] { color: var(--ink); }
+.step[data-state="current"] .step-dot {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bone);
+}
+.step[data-state="current"] { color: var(--ink); font-weight: 500; }
+.step-bar { width: clamp(16px, 4vw, 44px); height: 1px; background: var(--gray-line); flex: none; }
+
+/* --------------------------------------------------------------------------
+   21. LOADER
+   -------------------------------------------------------------------------- */
+/* The previous loader was dismissed ONLY by JS. With JS disabled or a CDN
+   blocked, it stayed at opacity:1 / pointer-events:auto / z-index:200 —
+   a black sheet permanently covering the page. Verified in a headless browser.
+   Three changes make that impossible:
+     1. A CSS keyframe self-dismisses it with no JS involved at all.
+     2. pointer-events is dropped early in the keyframe, so the page is
+        clickable even during the fade.
+     3. JS only ever *accelerates* the exit (.is-done); it can no longer be
+        the thing standing between the user and the page.
+   Net effect: the loader cannot trap anyone, however badly the page loads. */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--ink);
+  display: grid;
+  place-items: center;
+  opacity: 1;
+  animation: loaderOut 0.6s var(--ease-out) 2s forwards;
+}
+
+/* JS path: fade out now, from wherever the keyframe currently is. */
+.loader.is-done {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease-out), visibility 0.45s;
+}
+
+@keyframes loaderOut {
+  0%   { opacity: 1; visibility: visible; pointer-events: auto; }
+  1%   { pointer-events: none; }   /* stop blocking immediately */
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* No motion preference: never show a loading curtain at all. */
+@media (prefers-reduced-motion: reduce) {
+  .loader { display: none; }
+}
+
+.loader-bar {
+  width: min(180px, 40vw);
+  height: 1px;
+  background: rgba(255,255,255,0.14);
+  overflow: hidden;
+  margin-top: 1.25rem;
+}
+.loader-bar i {
+  display: block;
+  height: 100%;
+  width: 40%;
+  background: var(--gold);
+  animation: loaderSlide 1.1s var(--ease-inout) infinite;
+}
+@keyframes loaderSlide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* --------------------------------------------------------------------------
+   22. VIMEO / VIDEO FRAME
+   The hero's centrepiece. The gold hairline + glow is what separates an
+   embedded iframe from a designed object.
+   -------------------------------------------------------------------------- */
+/* The film is the hero. It breaks out of .shell (1240) to 1380 so it dominates
+   the fold — roughly 40% wider than the old max-w-4xl.
+
+   The width curve is deliberate: near full-bleed on mobile where every pixel
+   counts, ~88% on a laptop where it should dominate, and settling to 1380 on
+   large desktops so it keeps real gutters instead of touching the edges.
+
+   The negative margin is what breaks it out of the shell: `100%` resolves to
+   the shell's content box, so the calc yields a negative value that widens the
+   element symmetrically. Done with margins rather than transform on purpose —
+   GSAP owns transform here, and a translateX(-50%) would be wiped by the
+   reveal tween. */
+.vframe-wrap {
+  /* Mobile wants every pixel; desktop wants gutters. A single clamp can't
+     express both, so the gutter steps up at breakpoints. */
+  --vw-width: min(100vw - 1.5rem, 1380px);
+  width: var(--vw-width);
+  margin-inline: calc((100% - var(--vw-width)) / 2);
+}
+@media (min-width: 768px)  { .vframe-wrap { --vw-width: min(100vw - 6rem, 1380px); } }
+@media (min-width: 1280px) { .vframe-wrap { --vw-width: min(100vw - 14rem, 1380px); } }
+
+.vframe {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(201, 164, 92, 0.28);
+  max-width: var(--maxw-wide);
+  margin-inline: auto;
+  box-shadow:
+    0 40px 120px -20px rgba(0, 0, 0, 0.9),
+    0 0 80px -20px rgba(201, 164, 92, 0.35);
+}
+.vframe iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Poster overlay — sits above the iframe until the visitor presses play, so
+   the LCP is our own optimised image rather than Vimeo's player boot. */
+.vframe-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  background: none;
+  transition: opacity 0.6s var(--ease-out), visibility 0.6s;
+}
+.vframe-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.72) saturate(0.9);
+  transition: transform 1.2s var(--ease-out), filter 0.6s var(--ease-out);
+}
+.vframe-poster:hover img { transform: scale(1.03); filter: brightness(0.82) saturate(1); }
+.vframe.is-playing .vframe-poster { opacity: 0; visibility: hidden; }
+
+/* Unmute affordance. Sits over the muted ambient loop; disappears once the
+   visitor turns sound on. Glass, because it sits on moving footage. */
+.vframe-sound {
+  position: absolute;
+  right: clamp(0.75rem, 1.5vw, 1.25rem);
+  bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.1em;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--bone);
+  background: rgba(10, 10, 11, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.vframe-sound:hover {
+  background: rgba(201, 164, 92, 0.9);
+  border-color: transparent;
+  color: #1A1408;
+  transform: translateY(-2px);
+}
+.vframe-sound[hidden] { display: none; }
+
+/* Custom play button */
+.play-lg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: clamp(66px, 8vw, 92px);
+  height: clamp(66px, 8vw, 92px);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  pointer-events: none;
+  transition: transform 0.5s var(--ease-out), background-color 0.5s var(--ease-out);
+}
+.play-lg svg { margin-left: 4px; }
+.vframe-poster:hover .play-lg {
+  transform: scale(1.08);
+  background: rgba(201, 164, 92, 0.85);
+  border-color: transparent;
+}
+/* Breathing ring */
+.play-lg::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  animation: playPulse 2.6s var(--ease-out) infinite;
+}
+@keyframes playPulse {
+  0%   { transform: scale(1);    opacity: 0.7; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .play-lg::before { animation: none; } }
+
+/* --------------------------------------------------------------------------
+   22b. TESTIMONIAL LOOP
+   An infinite marquee of testimonial cards. The track holds the cards twice;
+   GSAP moves it to xPercent -50, which lands the duplicate exactly where the
+   original began — so the repeat is invisible. Duplication happens in JS
+   (animations.js → testimonialLoop) rather than in the markup, so the second
+   set can be aria-hidden and screen readers hear each testimonial once.
+   -------------------------------------------------------------------------- */
+.tloop {
+  position: relative;
+  overflow: hidden;
+  /* Fade the ends so cards arrive and leave rather than pop at a hard edge. */
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.tloop-track {
+  display: flex;
+  gap: clamp(1.25rem, 2.2vw, 2rem); /* more air between cards */
+  width: max-content;
+  will-change: transform;
+}
+/* Fallback: if GSAP never boots, the row is still readable and scrollable
+   instead of a frozen clipped strip. */
+html:not(.is-ready) .tloop { overflow-x: auto; }
+html:not(.is-ready) .tloop-track { animation: none; }
+
+/* ---- Testimonial card ---- */
+.tcard {
+  position: relative;
+  /* Trimmed from 420px: at full width the cards read as slabs and only two
+     fit on screen, which kills the sense of a moving row. */
+  flex: 0 0 clamp(275px, 72vw, 355px);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 1px 2px rgba(10, 10, 11, 0.03),
+    0 18px 48px -12px rgba(10, 10, 11, 0.14);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.tcard:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201, 164, 92, 0.55);
+  box-shadow:
+    0 1px 2px rgba(10, 10, 11, 0.04),
+    0 30px 70px -14px rgba(10, 10, 11, 0.22),
+    0 0 0 1px rgba(201, 164, 92, 0.12);
+}
+
+/* Oversized quote mark, set behind the text. */
+.tcard-quote {
+  position: absolute;
+  top: clamp(0.5rem, 1.5vw, 1rem);
+  right: clamp(1.25rem, 2.5vw, 2rem);
+  font-family: "EB Garamond", serif;
+  font-size: clamp(4rem, 6vw, 5.5rem);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.tcard:hover .tcard-quote { opacity: 0.3; }
+
+.tcard-body {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-on-light-muted);
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.tcard-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--gray-line);
+}
+.tcard-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  border: 1px solid var(--gray-line);
+  background: linear-gradient(140deg, rgba(201,164,92,0.2), rgba(201,164,92,0.05));
+}
+.tcard-name {
+  font-family: "Fraunces", serif;
+  font-size: 0.9688rem;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.tcard-role {
+  font-size: 0.75rem;
+  color: var(--text-on-light-muted);
+  margin-top: 0.2rem;
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   23. MONOGRAM
+   Stands in for a testimonial portrait we don't have. An honest initial reads
+   as a design decision; a stranger's stock face reads as a lie.
+   -------------------------------------------------------------------------- */
+.monogram {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  font-family: "EB Garamond", serif;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  background: linear-gradient(140deg, rgba(201,164,92,0.24), rgba(201,164,92,0.06));
+  border: 1px solid rgba(201, 164, 92, 0.4);
+  color: var(--gold-deep);
+}
+.on-light .monogram { color: var(--gold-deep); }
+
+/* --------------------------------------------------------------------------
+   24. OVERLAP GALLERY
+   -------------------------------------------------------------------------- */
+.overlap { position: relative; }
+.overlap-back { width: 78%; }
+.overlap-front {
+  position: absolute;
+  right: 0;
+  bottom: -12%;
+  width: 46%;
+  border: 6px solid var(--ink);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.on-light .overlap-front,
+.on-warm .overlap-front { border-color: var(--bone); }
+@media (max-width: 640px) {
+  .overlap-front { bottom: -8%; width: 52%; border-width: 4px; }
+}
+
+/* --------------------------------------------------------------------------
+   25. STAT TILE
+   -------------------------------------------------------------------------- */
+/* Mobile: one horizontal scrolling row instead of a 2-up grid. A 2x3 grid of
+   tiles eats most of a phone screen; a single snapping row keeps the whole
+   proof band to one gesture. Reverts to the approved grid at lg, which the
+   client signed off on — untouched. */
+.stats-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Bleed to the viewport edge so tiles run off-canvas rather than stopping
+     at a gutter — that's what signals "scrollable" without a scrollbar. */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-bottom: 0.25rem;
+}
+.stats-row::-webkit-scrollbar { display: none; }
+.stats-row > * {
+  scroll-snap-align: center;
+  flex: 0 0 clamp(9.5rem, 42vw, 12rem);
+}
+@media (min-width: 1024px) {
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+  .stats-row > * { flex: initial; }
+}
+
+.stat {
+  text-align: center;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 0.75rem;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  transition: border-color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
+}
+.stat:hover {
+  border-color: rgba(201, 164, 92, 0.3);
+  background: rgba(201, 164, 92, 0.04);
+}
+.stat-num {
+  font-family: var(--font-num);
+  font-size: clamp(2.125rem, 4.6vw, 3.5rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  color: var(--bone);
+  display: block;
+}
+.on-light .stat-num { color: var(--ink); }
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-on-dark-muted);
+  margin-top: 0.7rem;
+  display: block;
+  line-height: 1.4;
+}
+.on-light .stat-label { color: var(--text-on-light-muted); }
+
+/* --------------------------------------------------------------------------
+   26. ICON — crown / mic accents. Used sparingly: crown = authority,
+   mic = stage. Never decorative filler.
+   -------------------------------------------------------------------------- */
+.icon-ring {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: rgba(201, 164, 92, 0.1);
+  border: 1px solid rgba(201, 164, 92, 0.28);
+  color: var(--gold);
+}
+.on-light .icon-ring { color: var(--gold-deep); }
+.icon-crown { color: var(--gold); }
+
+/* --------------------------------------------------------------------------
+   27. UTILITIES
+   -------------------------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 300;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: 0; }
+
+.hairline-t { border-top: 1px solid var(--ink-line); }
+.on-light .hairline-t { border-top-color: var(--gray-line); }
+
+.text-gold { color: var(--gold); }
+.bg-ink { background: var(--ink); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

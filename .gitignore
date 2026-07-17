@@ -1,0 +1,43 @@
+# ── Raw photography ────────────────────────────────────────────────────────
+# 1.8 GB of full-resolution exports (single files up to 24 MB). These are the
+# SOURCE for assets/images/*.jpg — they are never served, and committing them
+# would make the repo unusable on GitHub and stall every Vercel deploy.
+#
+# The delivery crops in assets/images/ (~2 MB) ARE committed. Keep this folder
+# locally (or in Drive); re-run the crop pipeline when a new selection is
+# needed — see assets/images/README.md.
+assets/images/New folder/
+
+# ── Build intermediates ────────────────────────────────────────────────────
+# The build SCRIPTS are committed (build/*.mjs) and so are their OUTPUTS
+# (assets/css/build.min.css, assets/js/*.min.js) — that's what makes the repo
+# deployable on Vercel with zero build step. Only the throwaway middles are
+# ignored.
+build/vendor/
+build/tw.css
+build/*.bak
+
+# ── Node ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.npm/
+.cache/
+
+# ── Tooling / env ──────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.vercel
+dist/
+coverage/
+*.tsbuildinfo
+
+# ── OS / editor ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/

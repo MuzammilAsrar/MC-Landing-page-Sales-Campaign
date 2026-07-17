@@ -1,0 +1,21 @@
+# Normalise line endings so the repo is identical on Windows, macOS and the
+# Linux box Vercel builds on. Without this, Git rewrites CRLF on checkout and
+# every clone shows the whole tree as modified.
+* text=auto eol=lf
+
+# Binary — never touch these.
+*.jpg    binary
+*.jpeg   binary
+*.png    binary
+*.avif   binary
+*.webp   binary
+*.mp4    binary
+*.woff2  binary
+*.ico    binary
+
+# Generated build artefacts. They ARE committed (so Vercel needs no build
+# step), but collapsing them in diffs keeps reviews readable.
+assets/css/build.min.css  linguist-generated=true -diff
+assets/js/app.min.js      linguist-generated=true -diff
+assets/js/checkout.min.js linguist-generated=true -diff
+package-lock.json         linguist-generated=true -diff

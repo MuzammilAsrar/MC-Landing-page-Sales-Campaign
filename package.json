@@ -1,0 +1,21 @@
+{
+  "name": "main-character-8-september",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page + checkout for MAIN CHARACTER — De kracht van jouw verhaal, 8 september 2026, Amsterdam.",
+  "scripts": {
+    "build:css": "tailwindcss -i build/tailwind.src.css -o build/tw.css --minify",
+    "build": "node build/build.mjs",
+    "serve": "serve -l 4321 .",
+    "images": "node build/images.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13"
+  }
+}
