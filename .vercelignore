@@ -1,0 +1,31 @@
+# Keep the deployment to what the browser actually needs.
+# Belt and braces: vercel.json already skips install and build, so
+# node_modules should never exist here — but if it ever did, uploading 200MB
+# of it on every deploy would be the result.
+
+node_modules/
+
+# Build tooling. The OUTPUTS ship (assets/css/build.min.css, assets/js/*.min.js);
+# the scripts that produce them are for the repo, not the CDN.
+build/
+tailwind.config.js
+package.json
+package-lock.json
+
+# Source photography (already gitignored, listed again in case of a CLI deploy
+# from a working copy that still has it on disk).
+assets/images/New folder/
+
+# Docs — useful in the repo, not worth serving.
+CONTENT-TODO.md
+components/
+
+# Sources of the shipped bundles. main.css and the unminified JS are the
+# authoritative files for editing, but the browser only ever loads the builds.
+assets/css/main.css
+assets/js/main.js
+assets/js/animations.js
+assets/js/checkout.js
+
+.git/
+.gitattributes
