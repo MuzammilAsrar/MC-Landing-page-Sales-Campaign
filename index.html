@@ -125,7 +125,7 @@
       <!-- Short label + no arrow on small phones: the full "Claim Je Plek →"
            pushes the burger off-screen at 360px. Keeping a visible CTA in the
            nav matters more on paid traffic than keeping the wording identical. -->
-      <a href="/checkout.html" class="btn btn-gold !px-4 !py-3 !text-[0.8125rem] sm:!px-7 sm:!py-4 sm:!text-[0.9375rem]" data-cta="nav">
+      <a href="checkout.html" class="btn btn-gold !px-4 !py-3 !text-[0.8125rem] sm:!px-7 sm:!py-4 sm:!text-[0.9375rem]" data-cta="nav">
         <span class="sm:hidden">Tickets</span>
         <span class="hidden sm:inline">Claim Je Plek</span>
         <svg class="hidden sm:block" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -151,7 +151,7 @@
 
   <div class="mobile-menu-foot mt-12">
     <hr class="rule mb-7" />
-    <a href="#ticket" class="btn btn-gold btn-block btn-lg mb-5" data-cta="mobile-menu">
+    <a href="checkout.html" class="btn btn-gold btn-block btn-lg mb-5" data-cta="mobile-menu">
       Claim Jouw Plek Voor €125
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -198,7 +198,7 @@
 
     <!-- Headline -->
     <h1 class="display display-md max-w-[16ch] mx-auto text-center mb-6" data-split="lines">
-      Je Hebt Iets te Zeggen. Tijd Dat de Zaal Het <em>Hoort</em>.
+      Je Hebt Iets Te Zeggen. Tijd Dat De Zaal Het <em>Hoort</em>.
     </h1>
 
     <p class="lede !text-center mx-auto mb-10 max-w-[52ch]" data-reveal="up" data-reveal-delay="0.1">
@@ -232,18 +232,22 @@
           </span>
         </button>
 
-        <!-- The unmute button lived here. It existed only for the muted
-             ambient loop, which the facade removed: the film now mounts on
-             click and arrives with sound already on, so the poster's play
-             button is the whole affordance. main.js still guards for the
-             button, so re-adding it is enough if ambient autoplay ever comes
-             back (see README → Video). -->
+        <!-- The film autoplays muted; this is the route to sound. Not a video
+             scrubber, so it doesn't count as "controls" — it's the one
+             affordance a muted storytelling loop needs. main.js reveals it once
+             the muted loop is actually playing, and hides it once sound is on. -->
+        <button class="vframe-sound" id="heroSound" hidden aria-label="Geluid aanzetten">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/>
+          </svg>
+          Geluid Aan
+        </button>
       </div>
     </div>
 
     <!-- CTAs -->
     <div class="flex flex-col sm:flex-row gap-3 justify-center mb-10" data-reveal="up" data-reveal-delay="0.2">
-      <a href="#ticket" class="btn btn-gold btn-lg" data-cta="hero-primary">
+      <a href="checkout.html" class="btn btn-gold btn-lg" data-cta="hero-primary">
         Claim Jouw Plek Voor €125
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -537,7 +541,7 @@
     <!-- Glass CTA: the grain and gradient behind it give it something to refract -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14" data-reveal="up">
       <p class="text-sm text-[color:var(--text-on-dark-muted)]">Herken je er één? Dan is 8 september voor jou.</p>
-      <a href="#ticket" class="btn btn-glass" data-cta="doors">
+      <a href="checkout.html" class="btn btn-glass" data-cta="doors">
         Open De Deur
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -554,7 +558,7 @@
     <div class="text-center mb-16">
       <p class="eyebrow mb-6" data-reveal="up">De Verschuiving</p>
       <h2 class="display display-md max-w-[16ch] mx-auto" data-split="lines">
-        Eén Dag. Twee <em>Versies</em> van Jou.
+        Eén Dag. Twee <em>Versies</em> Van Jou.
       </h2>
     </div>
 
@@ -616,7 +620,7 @@
           <span class="display !text-[length:var(--step-3)] text-bone tnum">€125</span>
         </div>
         <p class="text-xs text-[color:var(--text-on-dark-muted)] mb-6">eenmalig · incl. btw</p>
-        <a href="#ticket" class="btn btn-gold btn-block" data-cta="shift">
+        <a href="checkout.html" class="btn btn-gold btn-block" data-cta="shift">
           Zet De Stap
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -635,7 +639,7 @@
       <div>
         <p class="eyebrow mb-6" data-reveal="up">De Ervaring</p>
         <h2 class="display display-md max-w-[18ch]" data-split="lines">
-          Dit Is Geen Cursus. Dit Is een <em>Zaal</em>.
+          Dit Is Geen Cursus. Dit Is Een <em>Zaal</em>.
         </h2>
       </div>
       <p class="lede lg:max-w-[38ch] lg:text-right" data-reveal="up" data-reveal-delay="0.1">
@@ -792,7 +796,7 @@
         </div>
 
         <div class="mt-10" data-reveal="up">
-          <a href="#ticket" class="btn btn-outline" data-cta="onyema">
+          <a href="checkout.html" class="btn btn-outline" data-cta="onyema">
             Laat Onyema Jou Regisseren
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -815,7 +819,7 @@
         <div class="mb-14">
           <p class="eyebrow eyebrow--muted mb-6" data-reveal="up">Het Programma</p>
           <h2 class="display display-md max-w-[19ch]" data-split="lines">
-            Vijf Bewegingen van Stil naar <em>Staand</em>.
+            Vijf Bewegingen Van Stil Naar <em>Staand</em>.
           </h2>
         </div>
 
@@ -912,7 +916,7 @@
             <li class="flex gap-2.5"><svg class="text-[color:var(--gold-deep)] flex-none mt-1" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Een groep die je heeft zien staan</li>
           </ul>
 
-          <a href="#ticket" class="btn-text mt-6" data-cta="programma">
+          <a href="checkout.html" class="btn-text mt-6" data-cta="programma">
             Reserveer Jouw Plek
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -1244,7 +1248,7 @@
     <p class="text-sm text-[color:var(--text-on-light-muted)] mb-5" data-reveal="up">
       Op 8 september zit jij in deze zaal.
     </p>
-    <a href="#ticket" class="btn btn-outline btn-lg" data-cta="testimonials" data-reveal="up">
+    <a href="checkout.html" class="btn btn-outline btn-lg" data-cta="testimonials" data-reveal="up">
       Ik Wil Ook Op Dat Podium
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -1343,7 +1347,7 @@
           niet uit kwam, en een agenda vol redenen om te wachten.
         </p>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="#ticket" class="btn btn-gold" data-cta="success">
+          <a href="checkout.html" class="btn btn-gold" data-cta="success">
             Claim Jouw Plek Voor €125
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
@@ -1364,14 +1368,14 @@
 
       <div class="lg:sticky lg:top-28 self-start">
         <p class="eyebrow mb-6" data-reveal="up">8 September</p>
-        <h2 class="display display-md mb-6" data-split="lines">Het <em>Draaiboek</em> van Je Dag.</h2>
+        <h2 class="display display-md mb-6" data-split="lines">Het <em>Draaiboek</em> Van Je Dag.</h2>
         <p class="lede mb-8" data-reveal="up" data-reveal-delay="0.1">
           Van koffie om half tien tot een zaal die om vijf uur op z'n voeten staat.
         </p>
         <div class="media media-tone ratio-video mb-8" data-reveal="up">
           <picture><source srcset="assets/images/exp-circle.avif" type="image/avif" /><source srcset="assets/images/exp-circle.webp" type="image/webp" /><img src="assets/images/exp-circle.jpg" alt="Deelnemers in een kring aan het begin van de dag." loading="lazy" width="1000" height="750" /></picture>
         </div>
-        <a href="#ticket" class="btn btn-gold" data-cta="agenda">
+        <a href="checkout.html" class="btn btn-gold" data-cta="agenda">
           Ik Ben Erbij Voor €125
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -1495,7 +1499,7 @@
           </div>
         </div>
 
-        <a href="#ticket" class="btn btn-outline" data-cta="locatie">
+        <a href="checkout.html" class="btn btn-outline" data-cta="locatie">
           Zet 8 September Vast
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -1673,7 +1677,7 @@
         <div class="cd-unit glass-dark"><span class="cd-num" data-cd="seconds">00</span><span class="cd-label">Sec</span></div>
       </div>
 
-      <a href="#ticket" class="btn btn-gold btn-lg flex-none" data-cta="urgency">
+      <a href="checkout.html" class="btn btn-gold btn-lg flex-none" data-cta="urgency">
         Claim Jouw Plek
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -1699,7 +1703,7 @@
     <p class="eyebrow mb-8" data-reveal="up">8 September · Amsterdam · 40 Stoelen</p>
 
     <h2 class="display display-lg max-w-[16ch] mx-auto mb-9" data-split="lines">
-      Over een Jaar Is Dit Het Moment Dat Je <em>Aanwijst</em>.
+      Over Een Jaar Is Dit Het Moment Dat Je <em>Aanwijst</em>.
     </h2>
 
     <p class="lede mx-auto mb-11 !text-center" data-reveal="up" data-reveal-delay="0.1">
@@ -1759,7 +1763,7 @@
     <hr class="rule mb-5" />
 
     <div class="flex flex-col md:flex-row justify-between items-center gap-5 text-xs text-[color:var(--text-on-dark-muted)]">
-      <p>© 2026 MAIN CHARACTER B.V. · KvK <span data-placeholder="legal">00000000</span></p>
+      <p>© 2026 MAIN CHARACTER B.V.</p>
       <div class="flex gap-7" data-placeholder="link">
         <a href="#" class="hover:text-bone transition-colors">Algemene Voorwaarden</a>
         <a href="#" class="hover:text-bone transition-colors">Privacy</a>
@@ -1786,7 +1790,7 @@
     </svg>
   </a>
 
-  <a href="#ticket" class="float-cta hidden lg:inline-flex" data-cta="floating">
+  <a href="checkout.html" class="float-cta hidden lg:inline-flex" data-cta="floating">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M3 9a2 2 0 002-2V6h14v1a2 2 0 000 4v1H5v-1a2 2 0 00-2-2z" opacity="0"/>
       <path d="M4 8V6a1 1 0 011-1h14a1 1 0 011 1v2a2 2 0 000 4v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2a2 2 0 000-4z"/>

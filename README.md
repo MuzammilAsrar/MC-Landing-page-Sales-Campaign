@@ -223,24 +223,28 @@ default. Nothing ever ends on a black frame.
 🚨 **The embed is currently 401 on every domain — see CONTENT-TODO.md.** It
 needs a Vimeo privacy change; no code here can fix it.
 
-**It uses the facade pattern: the player mounts on click, never on scroll.**
+**It autoplays muted, loops, and shows no controls** — the requested behaviour.
+The player mounts as soon as the hero is on screen (i.e. on load).
 
-Vimeo's embed drags in ~340KB of third-party JS (`player.module` 217KB,
-`vendor.module` 93KB, plus Google Cast) and sets third-party cookies. Mounting
-it automatically spent that on every visit, pushed Total Blocking Time to 260ms
-and capped Performance at 82. Our own AVIF poster is the facade; it carries the
-play button and looks identical until someone wants the film. Lighthouse
-recommends exactly this ("lazy load with a facade").
+⚠️ **This is a deliberate trade against Lighthouse, made at the client's
+request.** Vimeo's embed pulls in ~340KB of third-party JS (`player.module`
+217KB, `vendor.module` 93KB, plus Google Cast) and sets third-party cookies.
+Mounting it on load costs Best-Practices and Performance points versus the
+click-to-play "facade" this replaced (which scored Best Practices 100, ~340KB
+saved). The client chose autoplay over the score. To go back: mount only inside
+the poster/`#heroSound` click handlers in `initVimeo()` and drop the
+IntersectionObserver at the bottom.
 
-**The trade-off, stated plainly:** there is no muted ambient autoplay on scroll
-any more. On a page you pay Meta to fill, a 340KB tax on every visitor buys very
-little. If you would rather have ambient autoplay than the score, re-add the
-IntersectionObserver in `initVimeo()` and expect Performance ~82. The film still
-autoplays with sound the instant it is clicked.
+Two modes, both looping (`loop=1 playsinline=1 dnt=1`):
+- **muted ambient** (default, on load): `muted=1 controls=0`
+- **sound** (poster click or the `#heroSound` "Geluid Aan" button):
+  `muted=0 controls=1` — controls are "absolutely required" for a 1:52 film
+  with audio. `#heroSound` is the one affordance a muted storytelling loop needs
+  to reach sound; it isn't a video scrubber, so it doesn't count as "controls".
 
-Embed params (all modes): `loop=1 playsinline=1 dnt=1`, `muted=0 controls=1` on
-click. `dnt=1` keeps Vimeo from tracking visitors. Hovering the poster fires a
-`preconnect` so the click still feels instant.
+`dnt=1` keeps Vimeo from tracking visitors. Autoplay is skipped on
+Save-Data / 2G and under `prefers-reduced-motion`, where the poster + click path
+remains.
 
 **Two traps worth keeping:**
 

@@ -324,35 +324,42 @@
       window.addEventListener("message", onMessage);
     }
 
-    // FACADE — the player mounts on click, never on scroll.
+    // AUTOPLAY (muted, looping, no controls, inline) — the client's brief.
     //
-    // Vimeo's embed drags in ~340KB of third-party JS (player.module 217KB,
-    // vendor.module 93KB, plus Google Cast) and sets third-party cookies.
-    // Mounting it automatically spent all of that on every visit and put Total
-    // Blocking Time at 260ms — the single thing holding the page under 90.
+    // Note the cost, for whoever reads this next: mounting Vimeo on load pulls
+    // in ~340KB of third-party JS and sets third-party cookies, which lowers
+    // the Lighthouse Best-Practices/Performance scores versus the click-to-play
+    // facade this replaced. That is a deliberate, requested trade: the hero
+    // film must play by itself. If the scores ever matter more than the
+    // autoplay, revert to mounting only in the poster/sound click handlers.
     //
-    // The poster IS the facade: our own AVIF, with the play button on it. It
-    // looks identical until someone actually wants the film, and the film then
-    // autoplays with sound the moment it is asked for.
-    //
-    // The trade-off, stated plainly: no muted ambient autoplay on scroll. On a
-    // page we pay Meta to fill, a 340KB tax on every visitor buys very little.
-    const play = () => mount({ autoplay: true, muted: false });
-    poster.addEventListener("click", play);
+    // Poster-until-`play` safety still applies: if Vimeo blocks the embed
+    // (it currently 401s until the video's privacy is set to "Anywhere"), no
+    // real `play` event fires, so the poster stays and the hero still looks
+    // finished instead of showing Vimeo's error screen.
+
+    // Clicking the poster, or the sound button, upgrades to sound + controls.
+    const unmute = () => mount({ autoplay: true, muted: false });
+    poster.addEventListener("click", unmute);
     sound &&
       sound.addEventListener("click", () => {
-        play();
+        unmute();
         sound.hidden = true;
       });
 
-    // Warm the connection on hover so the click still feels instant. A
-    // preconnect costs a handshake, not 340KB.
-    poster.addEventListener("pointerenter", () => {
-      const l = document.createElement("link");
-      l.rel = "preconnect";
-      l.href = "https://player.vimeo.com";
-      document.head.appendChild(l);
-    }, { once: true });
+    // Muted autoplay starts as soon as the hero is on screen (i.e. on load).
+    // Skipped on Save-Data / 2G, where the 340KB is genuinely unwelcome, and
+    // under reduced-motion — in both cases the poster + click path remains.
+    const conn = navigator.connection;
+    const cheapData = conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ""));
+    if (reduceMotion || cheapData || !("IntersectionObserver" in window)) return;
+
+    const io = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      mount({ autoplay: true, muted: true });
+    }, { threshold: 0.1 });
+    io.observe(frame);
   }
 
   /* ------------------------------------------------------------------------
