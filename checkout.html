@@ -131,7 +131,12 @@
             <p class="eyebrow mb-2">Jouw Regisseur</p>
             <p class="display !text-[length:var(--step-2)] text-bone leading-tight">Onyema Onwuka</p>
             <p class="text-xs text-[color:var(--text-on-dark-muted)] mt-2 max-w-[22ch]">Regie en sprekerscoaching</p>
-            <div class="stars mt-3 text-sm" aria-hidden="true">★★★★★</div>
+            <!-- Numeric rating under the stars, matching the landing page. -->
+            <div class="flex items-center gap-2 mt-3">
+              <div class="stars text-sm" aria-hidden="true">★★★★★</div>
+              <span class="price text-sm text-bone tnum" data-placeholder="rating">4,9</span>
+              <span class="text-xs text-[color:var(--text-on-dark-muted)]" data-placeholder="rating">· 87 beoordelingen</span>
+            </div>
           </div>
         </div>
       </div>
@@ -367,7 +372,7 @@
 
               <div class="flex justify-between items-baseline pt-4 border-t border-[color:var(--gray-line)] mb-1">
                 <span class="font-medium">Totaal Vandaag</span>
-                <span class="display !text-[length:var(--step-2)] tnum" data-total>€125,00</span>
+                <span class="price !text-[length:var(--step-2)] tnum" data-total>€125,00</span>
               </div>
               <p class="text-[0.6875rem] text-[color:var(--text-on-light-muted)] mb-6">
                 Eenmalig · incl. 21% btw · geen abonnement

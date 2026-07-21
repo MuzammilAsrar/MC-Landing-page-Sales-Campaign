@@ -197,8 +197,14 @@
     </div>
 
     <!-- Headline -->
-    <h1 class="display display-md max-w-[16ch] mx-auto text-center mb-6" data-split="lines">
-      Je Hebt Iets Te Zeggen. Tijd Dat De Zaal Het <em>Hoort</em>.
+    <!-- Exactly two lines: the <br> forces the split at the sentence boundary.
+         measureLines() leaves the <br> in place (it only rewraps text nodes),
+         so sentence 2 is measured on its own visual line and rebuilt as a
+         second masked line. The wide max-width keeps each sentence from
+         wrapping on its own; on the smallest phones sentence 2 may wrap to a
+         third line, which the brief allows. -->
+    <h1 class="display display-md hero-h1 max-w-[26ch] mx-auto text-center mb-6" data-split="lines">
+      Je Hebt Iets Te Zeggen.<br />Tijd Dat De Zaal Het <em>Hoort</em>.
     </h1>
 
     <p class="lede !text-center mx-auto mb-10 max-w-[52ch]" data-reveal="up" data-reveal-delay="0.1">
@@ -617,7 +623,7 @@
       <div class="cta-split-action">
         <div class="flex items-baseline gap-3 mb-1">
           <span class="text-[color:var(--text-on-dark-muted)] line-through tnum">€500</span>
-          <span class="display !text-[length:var(--step-3)] text-bone tnum">€125</span>
+          <span class="price !text-[length:var(--step-3)] text-bone tnum">€125</span>
         </div>
         <p class="text-xs text-[color:var(--text-on-dark-muted)] mb-6">eenmalig · incl. btw</p>
         <a href="checkout.html" class="btn btn-gold btn-block" data-cta="shift">
@@ -941,7 +947,7 @@
 
     <div class="grid lg:grid-cols-[1fr_0.85fr] gap-4 lg:gap-6 items-start max-w-5xl mx-auto">
 
-      <div class="space-y-3" data-stagger>
+      <div class="grid gap-3 [grid-auto-rows:1fr]" data-stagger>
 
         <article class="card card-hover card-glow flex gap-5" data-reveal="up">
           <div class="icon-ring" aria-hidden="true">
@@ -1042,7 +1048,7 @@
 
           <div class="flex items-baseline justify-center gap-3 mb-1">
             <span class="text-[color:var(--text-on-dark-muted)] line-through text-lg tnum">€500</span>
-            <span class="display !text-[length:var(--step-4)] text-bone tnum">€125</span>
+            <span class="price !text-[length:var(--step-4)] text-bone tnum">€125</span>
           </div>
           <p class="text-xs text-[color:var(--text-on-dark-muted)]">eenmalig · incl. btw · alle vijf onderdelen</p>
 
@@ -1116,33 +1122,36 @@
   <!-- Hero testimonial — the real one -->
   <div class="shell mb-4">
     <div class="card card-light !p-0 overflow-hidden grid lg:grid-cols-[0.8fr_1fr]" data-reveal="up">
-      <div class="media media-plain !rounded-none relative min-h-[380px] lg:min-h-[520px]">
+      <!-- The poster fills its cell absolutely so the portrait image can't
+           drive the card height to its full ~880px. The card now sizes to the
+           (trimmed) text content, and the video crops to match — much cleaner. -->
+      <div class="media media-plain !rounded-none relative min-h-[260px] lg:min-h-[380px]">
         <picture><source srcset="assets/video/testimonial-brenda-poster.avif" type="image/avif" /><source srcset="assets/video/testimonial-brenda-poster.webp" type="image/webp" /><img src="assets/video/testimonial-brenda-poster.jpg" alt="Brenda Kouwenhoven vertelt over haar ervaring met de MAIN CHARACTER Methode."
-             loading="lazy" width="540" height="954" class="!object-cover" /></picture>
+             loading="lazy" width="540" height="954" class="!absolute inset-0 w-full h-full !object-cover" /></picture>
         <button class="play-btn" data-video="assets/video/testimonial-brenda.mp4" aria-label="Bekijk de videoreactie van Brenda Kouwenhoven">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
         </button>
         <span class="pill pill-glass absolute top-5 left-5 z-[2]">Video · 1:30</span>
       </div>
 
-      <div class="p-8 lg:p-12 flex flex-col justify-center">
-        <div class="quote-mark mb-4" aria-hidden="true">"</div>
-        <div class="stars mb-6" aria-hidden="true">★★★★★</div>
+      <div class="p-6 lg:p-8 flex flex-col justify-center">
+        <div class="quote-mark mb-2" aria-hidden="true">"</div>
+        <div class="stars mb-4" aria-hidden="true">★★★★★</div>
 
-        <blockquote class="display !text-[length:var(--step-2)] !leading-[1.3] text-[color:var(--ink)] mb-7">
+        <blockquote class="display !text-[length:var(--step-1)] !leading-[1.3] text-[color:var(--ink)] mb-5">
           Ik had niet verwacht dat dat al direct zoveel emoties los kon maken.
         </blockquote>
 
-        <p class="text-[color:var(--text-on-light-muted)] mb-4 max-w-[46ch]">
+        <p class="text-sm text-[color:var(--text-on-light-muted)] mb-3 max-w-[46ch]">
           "Het Framework geeft me echt de tool in handen. Want als het vanuit je
           eigen visie komt, dán raakt het."
         </p>
-        <p class="text-[color:var(--text-on-light-muted)] mb-8 max-w-[46ch]">
+        <p class="text-sm text-[color:var(--text-on-light-muted)] mb-6 max-w-[46ch]">
           "Het was eigenlijk een dagelijks moment uit mijn leven, dat ik toch op
           een goede manier kon overbrengen. Het heeft mij tot veel inzicht geleid."
         </p>
 
-        <footer class="flex items-center gap-4 pt-7 border-t border-[color:var(--gray-line)]">
+        <footer class="flex items-center gap-4 pt-5 border-t border-[color:var(--gray-line)]">
           <span class="monogram" aria-hidden="true">BK</span>
           <div>
             <p class="text-sm font-medium text-[color:var(--ink)]">Brenda Kouwenhoven</p>

@@ -164,6 +164,28 @@ picture { display: contents; }
 .display-md { font-size: var(--step-4); }
 .display-sm { font-size: var(--step-3); }
 
+/* Hero heading. A <br> forces the split into exactly two lines at the sentence
+   boundary (desktop → tablet fit each sentence on one line at display-md).
+   The second sentence, "Tijd Dat De Zaal Het Hoort.", is 27 characters — too
+   long to fit at the full display-md size on a phone, so ≤640px steps the size
+   down just enough to keep it to two lines. Placed after .display-md so it
+   wins the equal-specificity tie. */
+@media (max-width: 640px) {
+  .hero-h1 { font-size: clamp(1.4rem, 6vw, 2.1rem); }
+}
+
+/* Price figures. A clean, simple sans instead of the display serif — the
+   client asked for a plain price font on both pages. Same tabular lining
+   figures as the counters so the digits align and don't jitter. */
+.price {
+  font-family: var(--font-num);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
 /* MEASURE — read this before adding a headline.
    Cap the line length with `max-w-[Nch]` ON THE HEADING, never on a wrapper
    div. `ch` resolves against the element's own font-size: on a 16px wrapper
@@ -1077,16 +1099,16 @@ body.menu-locked { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  padding: 1.15rem 0;
+  gap: 1.5rem;
+  padding: 0.85rem 0;               /* compact: was 1.15rem */
   background: none;
   border: 0;
   text-align: left;
   cursor: pointer;
   font-family: "Fraunces", serif;
-  font-size: var(--step-1);
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); /* a touch below step-1 */
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.3;
   color: var(--ink);
   letter-spacing: -0.015em;
   transition: color var(--dur-fast) var(--ease-out);
@@ -1095,7 +1117,7 @@ body.menu-locked { overflow: hidden; }
 
 .acc-icon {
   flex: none;
-  width: 34px; height: 34px;
+  width: 30px; height: 30px;        /* compact: was 34px */
   border-radius: 50%;
   border: 1px solid var(--gray-line);
   display: grid;
@@ -1125,7 +1147,7 @@ body.menu-locked { overflow: hidden; }
 
 .acc-panel { overflow: hidden; height: 0; }
 .acc-body {
-  padding-bottom: 1.35rem;
+  padding-bottom: 1rem;             /* compact: was 1.35rem */
   color: var(--text-on-light-muted);
   max-width: var(--maxw-prose);
   font-size: 0.9375rem;
